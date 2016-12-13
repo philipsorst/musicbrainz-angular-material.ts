@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ddr.musicbrainz.app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <title ng-bind="title">Musicbrainz Browser</title>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,700'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="lib/angular-material/angular-material.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body ng-cloak layout="row">
+
+<md-sidenav
+        class="md-sidenav-left"
+        md-component-id="left"
+        md-is-locked-open="$mdMedia('gt-md')"
+        md-whiteframe="4"
+        layout="column">
+
+    <md-toolbar>
+        <h1 class="md-toolbar-tools">Sidenav Left</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+        Sidebar content
+    </md-content>
+
+</md-sidenav>
+
+<div layout="column" flex>
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button ng-click="toggleSidenav('left')" class="md-icon-button" hide-gt-md>
+                <md-icon aria-label="Menu">menu</md-icon>
+            </md-button>
+            <h1>Hello</h1>
+        </div>
+    </md-toolbar>
+
+    <md-content flex class="no-overflow" layout-padding>
+        Hello World!
+    </md-content>
+
+</div>
+
+<script type="text/javascript" src="lib/angular/angular.js"></script>
+<!--<script type="text/javascript" src="lib/angular-route/angular-route.js"></script>-->
+<script type="text/javascript" src="lib/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="lib/angular-aria/angular-aria.js"></script>
+<script type="text/javascript" src="lib/angular-material/angular-material.js"></script>
+<script type="text/javascript" src="lib/lodash/lodash.js"></script>
+<script type="text/javascript" src="lib/restangular/dist/restangular.js"></script>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>

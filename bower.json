@@ -1,0 +1,22 @@
+{
+  "name": "musicbrainz-angular-material",
+  "authors": [
+    "Philip Washington Sorst <philip@sorst.net>"
+  ],
+  "description": "Musicbrainz Browser",
+  "main": "",
+  "license": "Apache2",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "^1.1.1",
+    "restangular": "^1.5.2"
+  }
+}
