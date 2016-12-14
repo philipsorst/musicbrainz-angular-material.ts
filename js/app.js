@@ -1,18 +1,26 @@
 (function () {
     'use strict';
 
-    angular.module('ddr.musicbrainz.app', ['ngMaterial', 'restangular'])
-        .config(configBlock);
+    angular.module('ddr.musicbrainz.app', [
+        'ddr.musicbrainz.controllers',
+        'ngMaterial',
+        'restangular'
+    ])
+        .config(configBlock)
+        .run(runBlock);
 
     configBlock.$inject = ['$httpProvider', '$mdThemingProvider', 'RestangularProvider', '$locationProvider'];
-    function configBlock( $httpProvider, $mdThemingProvider, RestangularProvider, $locationProvider) {
+    function configBlock($httpProvider, $mdThemingProvider, RestangularProvider, $locationProvider, $qProvider) {
 
         /* DELETE has content-type xml set by default */
         $httpProvider.defaults.headers["delete"] = {
             'Content-Type': 'application/json;charset=utf-8'
         };
 
-        // RestangularProvider.setBaseUrl(fetchtool.config.apiPath);
+        RestangularProvider.setBaseUrl('https://musicbrainz.org/ws/2/');
+        RestangularProvider.setDefaultRequestParams({'fmt': 'json'});
+        RestangularProvider.setDefaultHttpFields({cache: true});
+
         // RestangularProvider.setRestangularFields({
         //     selfLink: '_links.self.href'
         // });
@@ -40,10 +48,13 @@
         // $httpProvider.interceptors.push('ddr.fetchtool.http.error_interceptor');
     }
 
-    runBlock.$inject = ['$rootScope', '$mdSidenav', '$document', '$window', '$location', '$timeout', 'Restangular',  '$mdToast'];
-    function runBlock($rootScope, $mdSidenav, $document, $window, $location, $timeout, Restangular,  $mdToast) {
+    runBlock.$inject = ['$rootScope', '$mdSidenav', '$document', '$window', '$location', '$timeout', 'Restangular', '$mdToast'];
+    function runBlock($rootScope, $mdSidenav, $document, $window, $location, $timeout, Restangular, $mdToast) {
 
-        $rootScope.toggleSidenav = function(menuId) {
+        $rootScope.title = 'Musicbrainz Browser';
+
+        $rootScope.toggleSidenav = function (menuId) {
+            console.log('toggle', menuId);
             $mdSidenav(menuId).toggle();
         };
 
@@ -67,17 +78,17 @@
          * @param event
          * @returns {boolean}
          */
-        $window.oncontextmenu = function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        };
+        // $window.oncontextmenu = function (event) {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     return false;
+        // };
 
         $rootScope.back = function () {
             $window.history.back();
         };
 
-               $($document).keyup(function (e) {
+        angular.element($document).keyup(function (e) {
             if (e.which == 27) {
                 $rootScope.$broadcast("key-escape");
             } else if (e.which == 37) {
@@ -88,11 +99,7 @@
                 $rootScope.$broadcast('key-down');
             }
         });
-
-        if (InitService.applyCookie()) {
-            InitService.load().then(function (user) {
-                InitService.removeLoadingScreen();
-            });
-        }
     }
+
+    angular.module('ddr.musicbrainz.controllers', []);
 })();
