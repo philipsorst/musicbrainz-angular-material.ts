@@ -3,9 +3,9 @@
 
     angular.module('ddr.musicbrainz.controllers').controller('ddr.musicbrainz.controller.toolbar', Controller);
 
-    Controller.$inject = ['$scope', 'Restangular', '$q', '$timeout'];
+    Controller.$inject = ['$scope', 'Restangular', '$q', '$timeout', '$location'];
 
-    function Controller($scope, restangular, $q, $timeout) {
+    function Controller($scope, restangular, $q, $timeout, $location) {
 
         var searchTimeout;
         $scope.search = function (searchText) {
@@ -17,7 +17,7 @@
                     'limit': 10
                 });
                 var releaseGroupsPromise = restangular.one('release-group').get({
-                    'query': buildRecordingQuery(searchText),
+                    'query': searchText,
                     'limit': 10
                 });
                 var recordingsPromise = restangular.one('recording').get({
@@ -81,7 +81,7 @@
         function buildRecordingQuery(searchText) {
             var words = searchText.split(' ');
             var joinedWords = words.join(' OR ');
-            var query =  joinWords(words, 'artist:') + ' OR ' + joinWords(words, 'recording:');
+            var query = joinWords(words, 'artist:') + ' OR ' + joinWords(words, 'recording:');
             console.log(query);
 
             return query;
@@ -101,7 +101,18 @@
         }
 
         $scope.$watch('selectedItem', function (selectedItem) {
-            console.log('Selected', selectedItem);
+            if (angular.isDefined(selectedItem) && selectedItem !== null) {
+                $scope.showSearch = false;
+                console.log('Selected', selectedItem);
+                switch (selectedItem.type) {
+                    case 'artist':
+                        break;
+                    case 'release-group':
+                        break;
+                    case 'recording':
+                        break;
+                }
+            }
         });
     }
 })();

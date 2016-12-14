@@ -5,18 +5,28 @@
         'ddr.musicbrainz.controllers',
         'ddr.musicbrainz.filters',
         'ngMaterial',
-        'restangular'
+        'restangular',
+        'ngRoute'
     ])
         .config(configBlock)
         .run(runBlock);
 
-    configBlock.$inject = ['$httpProvider', '$mdThemingProvider', 'RestangularProvider', '$locationProvider'];
-    function configBlock($httpProvider, $mdThemingProvider, RestangularProvider, $locationProvider, $qProvider) {
+    configBlock.$inject = ['$httpProvider', '$mdThemingProvider', 'RestangularProvider', '$locationProvider', '$routeProvider'];
+    function configBlock($httpProvider, $mdThemingProvider, RestangularProvider, $locationProvider, $routeProvider) {
 
         /* DELETE has content-type xml set by default */
         $httpProvider.defaults.headers["delete"] = {
             'Content-Type': 'application/json;charset=utf-8'
         };
+
+        $routeProvider.when('/', {
+            templateUrl: 'partials/index.html',
+            controller: 'ddr.musicbrainz.controller.index'
+        });
+
+        $routeProvider.otherwise({
+            redirectTo: '/'
+        });
 
         RestangularProvider.setBaseUrl('https://musicbrainz.org/ws/2/');
         RestangularProvider.setDefaultRequestParams({'fmt': 'json'});
@@ -39,9 +49,9 @@
         //     return data;
         // });
 
-        $mdThemingProvider.theme('default')
-            .primaryPalette('blue')
-            .accentPalette('orange');
+        // $mdThemingProvider.theme('default')
+        //     .primaryPalette('blue')
+        //     .accentPalette('orange');
 
         // $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
