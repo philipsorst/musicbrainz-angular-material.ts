@@ -60,7 +60,15 @@
                         md-item-text="item.name"
                 >
                     <md-item-template>
-                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+                        <md-icon ng-show="item.type=='artist'">group</md-icon>
+                        <md-icon ng-show="item.type=='release-group'">album</md-icon>
+                        <md-icon ng-show="item.type=='recording'">audiotrack</md-icon>
+                        <span ng-show="item.type == 'release-group' || item.type == 'recording'">
+                            {{item.artistCredit|ddrMbArtistCredit}} -
+                        </span>
+                        <span md-highlight-text="searchText" md-highlight-flags="^i">
+                            {{item.name}}
+                        </span>
                     </md-item-template>
                 </md-autocomplete>
             </div>
@@ -85,6 +93,7 @@
 
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.toolbar.js"></script>
+<script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.artist-credit.js"></script>
 
 </body>
 </html>
