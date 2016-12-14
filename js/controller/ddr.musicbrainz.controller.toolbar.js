@@ -12,9 +12,18 @@
             var deferred = $q.defer();
             $timeout.cancel(searchTimeout);
             searchTimeout = $timeout(function () {
-                var artistsPromise = restangular.one('artist').get({'query': 'artist:' + searchText, 'limit': 10});
-                var releaseGroupsPromise = restangular.one('release-group').get({'query': 'releasegroup:' + searchText, 'limit': 10});
-                var recordingsPromise = restangular.one('recording').get({'query': 'recording:' + searchText, 'limit': 10});
+                var artistsPromise = restangular.one('artist').get({
+                    'query': searchText,
+                    'limit': 10
+                });
+                var releaseGroupsPromise = restangular.one('release-group').get({
+                    'query': buildRecordingQuery(searchText),
+                    'limit': 10
+                });
+                var recordingsPromise = restangular.one('recording').get({
+                    'query': searchText,
+                    'limit': 10
+                });
                 $q.all([artistsPromise, releaseGroupsPromise, recordingsPromise])
                     .then(function (data) {
                         var artistResult = data[0];
@@ -28,6 +37,7 @@
                             results.push({
                                 'id': artist.id,
                                 'name': artist.name,
+                                'score': artist.score,
                                 'type': 'artist'
                             });
                         }
@@ -38,6 +48,7 @@
                                 'id': releaseGroup.id,
                                 'name': releaseGroup.title,
                                 'artistCredit': releaseGroup['artist-credit'],
+                                'score': releaseGroup.score,
                                 'type': 'release-group'
                             });
                         }
@@ -48,11 +59,14 @@
                                 'id': recording.id,
                                 'name': recording.title,
                                 'artistCredit': recording['artist-credit'],
+                                'score': recording.score,
                                 'type': 'recording'
                             });
                         }
 
-                        console.log(results);
+                        results = results.sort(function (left, right) {
+                            return right.score - left.score;
+                        });
 
                         deferred.resolve(results);
                     })
@@ -63,6 +77,28 @@
 
             return deferred.promise;
         };
+
+        function buildRecordingQuery(searchText) {
+            var words = searchText.split(' ');
+            var joinedWords = words.join(' OR ');
+            var query =  joinWords(words, 'artist:') + ' OR ' + joinWords(words, 'recording:');
+            console.log(query);
+
+            return query;
+        }
+
+        function joinWords(words, prefix) {
+            var result = '';
+            for (var i = 0; i < words.length; i++) {
+                var word = words[i];
+                result += prefix + word;
+                if (i < words.length - 1) {
+                    result += ' OR ';
+                }
+            }
+
+            return result;
+        }
 
         $scope.$watch('selectedItem', function (selectedItem) {
             console.log('Selected', selectedItem);
