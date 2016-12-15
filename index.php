@@ -25,17 +25,17 @@
 
 <body ng-cloak layout="row">
 
-<md-sidenav
-        class="md-sidenav-left"
-        md-component-id="left"
-        md-whiteframe="4"
-        layout="column">
+<md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4" layout="column">
 
     <md-toolbar>
         <h1 class="md-toolbar-tools">Sidenav Left</h1>
     </md-toolbar>
-    <md-content layout-padding>
-        Sidebar content
+    <md-content>
+        <md-list>
+            <md-list-item ng-click="setLocation('/')">
+                Search
+            </md-list-item>
+        </md-list>
     </md-content>
 
 </md-sidenav>
@@ -89,8 +89,8 @@
         </md-toolbar>
     </div>
 
-    <div flex md-scroll-y ng-view>
-    </div>
+    <md-content ng-view>
+    </md-content>
 
 </div>
 
@@ -108,8 +108,11 @@
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.index.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.artist.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.release_group.js"></script>
+<script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.release.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.recording.js"></script>
+<script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.test.js"></script>
 <script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.artist-credit.js"></script>
+<script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.duration.js"></script>
 
 </body>
 </html>

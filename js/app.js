@@ -29,9 +29,19 @@
             controller: 'ddr.musicbrainz.controller.release_group'
         });
 
+        $routeProvider.when('/release/:id', {
+            templateUrl: 'partials/release.html',
+            controller: 'ddr.musicbrainz.controller.release'
+        });
+
         $routeProvider.when('/recording/:id', {
             templateUrl: 'partials/recording.html',
             controller: 'ddr.musicbrainz.controller.recording'
+        });
+
+        $routeProvider.when('/test', {
+            templateUrl: 'partials/test.html',
+            controller: 'ddr.musicbrainz.controller.test'
         });
 
         $routeProvider.when('/', {
@@ -100,6 +110,27 @@
             } else {
                 this.$apply(fn);
             }
+        };
+
+        $rootScope.setLocation = function (location) {
+            $location.path(location);
+            $mdSidenav('left').close();
+        };
+
+        $rootScope.showArtist = function (artist) {
+            $rootScope.setLocation('/artist/' + artist.id);
+        };
+
+        $rootScope.showReleaseGroup = function (releaseGroup) {
+            $rootScope.setLocation('/release-group/' + releaseGroup.id);
+        };
+
+        $rootScope.showRelease = function (release) {
+            $rootScope.setLocation('/release/' + release.id);
+        };
+
+        $rootScope.showRecording = function (recording) {
+            $rootScope.setLocation('/recording/' + recording.id);
         };
 
         /**
