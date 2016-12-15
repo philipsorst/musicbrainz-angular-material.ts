@@ -11,6 +11,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="lib/angular-material/angular-material.min.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <?php
+    function url(){
+        return sprintf(
+            "%s://%s%s",
+            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+            $_SERVER['SERVER_NAME'],
+            $_SERVER['REQUEST_URI']
+        );
+    }
+    ?>
+    <base href="<?php echo url() ?>" />
 </head>
 
 <body ng-cloak layout="row">

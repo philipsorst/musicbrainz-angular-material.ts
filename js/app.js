@@ -53,7 +53,7 @@
         //     .primaryPalette('blue')
         //     .accentPalette('orange');
 
-        // $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
 
         // $httpProvider.interceptors.push('ddr.fetchtool.http.error_interceptor');
