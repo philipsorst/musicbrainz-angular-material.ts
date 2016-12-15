@@ -1,16 +1,34 @@
-<md-card ng-repeat="medium in release.media">
-    <md-card-title ng-show="medium.title">
-        <span class="md-headline">{{medium.title}}</span>
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{release['artist-credit']|ddrMbArtistCredit}} - {{release.title}}</span>
+        </md-card-title-text>
     </md-card-title>
-    <md-card-content>
-        <md-list>
-            <md-list-item ng-repeat="track in medium.tracks" class="md-2-line">
-                <div class="md-list-item-text">
-                    <h3>{{track.title}}</h3>
-                    <p>{{track.recording['artist-credit']|ddrMbArtistCredit}}</p>
-                </div>
-                <span class="md-secondary">{{track.length|ddrMbDuration}}</span>
-            </md-list-item>
-        </md-list>
-    </md-card-content>
 </md-card>
+
+<div layout="column" layout-gt-md="row">
+    <md-card flex ng-show="release['cover-art-archive'].front">
+        <img ng-src="http://coverartarchive.org/release/{{release.id}}/front-500" class="md-card-image">
+    </md-card>
+
+    <div layout="column" flex>
+        <md-card ng-repeat="medium in release.media">
+            <md-card-title ng-show="medium.title">
+                <md-card-title-text>
+                    <span class="md-headline">{{medium.title}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-list>
+                    <md-list-item ng-repeat="track in medium.tracks" class="md-2-line">
+                        <div class="md-list-item-text">
+                            <h3>{{track.title}}</h3>
+                            <p>{{track.recording['artist-credit']|ddrMbArtistCredit}}</p>
+                        </div>
+                        <span class="md-secondary">{{track.length|ddrMbDuration}}</span>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>
