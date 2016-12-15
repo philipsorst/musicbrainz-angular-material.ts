@@ -5,23 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-
-    <title ng-bind="title">Musicbrainz Browser</title>
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,700'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="lib/angular-material/angular-material.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
     <?php
     function url(){
         return sprintf(
             "%s://%s%s",
             isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
             $_SERVER['SERVER_NAME'],
-            $_SERVER['REQUEST_URI']
+            $_SERVER['BASE']
         );
     }
     ?>
-    <base href="<?php echo url() ?>" />
+    <base href="<?php echo url().'/' ?>" />
+    <title ng-bind="title">Musicbrainz Browser</title>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,700'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="lib/angular-material/angular-material.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body ng-cloak layout="row">
@@ -90,8 +89,8 @@
         </md-toolbar>
     </div>
 
-    <md-content flex md-scroll-y layout-padding ng-view>
-    </md-content>
+    <div flex md-scroll-y ng-view>
+    </div>
 
 </div>
 
@@ -107,6 +106,9 @@
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.toolbar.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.index.js"></script>
+<script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.artist.js"></script>
+<script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.release_group.js"></script>
+<script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.recording.js"></script>
 <script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.artist-credit.js"></script>
 
 </body>

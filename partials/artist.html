@@ -1,0 +1,28 @@
+<div layout="row" layout-align="center center" ng-show="loading">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+
+<md-card ng-show="!loading">
+    <md-tabs md-border-bottom md-dynamic-height>
+        <md-tab label="Albums" md-on-select="loadAlbums()">
+            <md-content class="md-padding">
+                <div layout="row" layout-align="center center" ng-show="albumsLoading">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+                <md-grid-list md-cols="2" md-cols-sm="2" md-cols-md="3" md-cols-lg="4" md-cols-gt-lg="6" md-row-height="1:1">
+                    <md-grid-tile ng-repeat="album in albums">
+                        <md-grid-tile-footer>
+                            {{album.title}}
+                        </md-grid-tile-footer>
+                    </md-grid-tile>
+            </md-content>
+        </md-tab>
+        <md-tab label="Singles" md-on-select="loadSingles()">
+            <md-content class="md-padding">
+                <div layout="row" layout-align="center center" ng-show="singlesLoading">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-card>

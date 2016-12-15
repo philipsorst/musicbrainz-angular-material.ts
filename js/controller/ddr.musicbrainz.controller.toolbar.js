@@ -71,6 +71,7 @@
                         deferred.resolve(results);
                     })
                     .catch(function (error) {
+                        console.error('Search failed', error);
                         deferred.reject(error);
                     })
             }, 500);
@@ -115,10 +116,13 @@
                 console.log('Selected', selectedItem);
                 switch (selectedItem.type) {
                     case 'artist':
+                        $location.path('/artist/' + selectedItem.id);
                         break;
                     case 'release-group':
+                        $location.path('/release-group/' + selectedItem.id);
                         break;
                     case 'recording':
+                        $location.path('recording/' + selectedItem.id);
                         break;
                 }
             }

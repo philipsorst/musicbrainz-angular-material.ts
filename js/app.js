@@ -19,6 +19,21 @@
             'Content-Type': 'application/json;charset=utf-8'
         };
 
+        $routeProvider.when('/artist/:id', {
+            templateUrl: 'partials/artist.html',
+            controller: 'ddr.musicbrainz.controller.artist'
+        });
+
+        $routeProvider.when('/release-group/:id', {
+            templateUrl: 'partials/release-group.html',
+            controller: 'ddr.musicbrainz.controller.release_group'
+        });
+
+        $routeProvider.when('/recording/:id', {
+            templateUrl: 'partials/recording.html',
+            controller: 'ddr.musicbrainz.controller.recording'
+        });
+
         $routeProvider.when('/', {
             templateUrl: 'partials/index.html',
             controller: 'ddr.musicbrainz.controller.index'
@@ -50,8 +65,8 @@
         // });
 
         // $mdThemingProvider.theme('default')
-        //     .primaryPalette('blue')
-        //     .accentPalette('orange');
+        //     .backgroundPalette('grey');
+
 
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
@@ -62,7 +77,10 @@
     runBlock.$inject = ['$rootScope', '$mdSidenav', '$document', '$window', '$location', '$timeout', 'Restangular', '$mdToast'];
     function runBlock($rootScope, $mdSidenav, $document, $window, $location, $timeout, Restangular, $mdToast) {
 
-        $rootScope.title = 'Musicbrainz Browser';
+        /* Collapse navbar on route change */
+        $rootScope.$on('$routeChangeSuccess', function () {
+            $rootScope.title = 'Musicbrainz Browser';
+        });
 
         $rootScope.toggleSidenav = function (menuId) {
             console.log('toggle', menuId);
