@@ -17,11 +17,11 @@
                     'limit': 10
                 });
                 var releaseGroupsPromise = restangular.one('release-group').get({
-                    'query': searchText,
+                    'query': buildReleaseGroupQuery(searchText),
                     'limit': 10
                 });
                 var recordingsPromise = restangular.one('recording').get({
-                    'query': searchText,
+                    'query': buildRecordingQuery(searchText),
                     'limit': 10
                 });
                 $q.all([artistsPromise, releaseGroupsPromise, recordingsPromise])
@@ -81,7 +81,16 @@
         function buildRecordingQuery(searchText) {
             var words = searchText.split(' ');
             var joinedWords = words.join(' OR ');
-            var query = joinWords(words, 'artist:') + ' OR ' + joinWords(words, 'recording:');
+            var query = 'recording:(' + joinedWords + ')^2 OR artist:(' + joinedWords + ')';
+            console.log(query);
+
+            return query;
+        }
+
+        function buildReleaseGroupQuery(searchText) {
+            var words = searchText.split(' ');
+            var joinedWords = words.join(' OR ');
+            var query = 'releasegroup:(' + joinedWords + ')^2 OR artist:(' + joinedWords + ')';
             console.log(query);
 
             return query;
