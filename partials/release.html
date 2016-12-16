@@ -7,11 +7,11 @@
 </md-card>
 
 <div layout="column" layout-gt-md="row">
-    <md-card flex ng-show="release['cover-art-archive'].front">
+    <md-card flex="20" ng-show="release['cover-art-archive'].front">
         <img ng-src="http://coverartarchive.org/release/{{release.id}}/front-500" class="md-card-image">
     </md-card>
 
-    <div layout="column" flex>
+    <div layout="column" flex="80">
         <md-card ng-repeat="medium in release.media">
             <md-card-title ng-show="medium.title">
                 <md-card-title-text>

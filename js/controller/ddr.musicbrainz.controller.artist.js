@@ -19,9 +19,17 @@
 
         $scope.loadAlbums = function () {
             $scope.albumsLoading = true;
-            restangular.one('release-group').get({'artist': $routeParams.id, 'type': 'album', 'limit': 100})
+            restangular.one('release-group').get({
+                'artist': $routeParams.id,
+                'type': 'album',
+                'limit': 100
+            })
                 .then(function (response) {
-                    $scope.albums = response['release-groups'];
+                    var albums = response['release-groups'];
+                    albums = albums.sort(function(left, right) {
+                       return right['first-release-date'].localeCompare(left['first-release-date']);
+                    });
+                    $scope.albums = albums;
                 })
                 .finally(function () {
                     $scope.albumsLoading = false;
