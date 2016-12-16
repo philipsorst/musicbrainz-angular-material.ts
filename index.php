@@ -104,6 +104,7 @@
 <script type="text/javascript" src="lib/restangular/dist/restangular.js"></script>
 
 <script type="text/javascript" src="js/app.js"></script>
+
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.toolbar.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.index.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.artist.js"></script>
@@ -111,8 +112,11 @@
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.release.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.recording.js"></script>
 <script type="text/javascript" src="js/controller/ddr.musicbrainz.controller.test.js"></script>
+
+<script type="text/javascript" src="js/service/ddr.musicbrainz.service.artist.js"></script>
+
 <script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.artist-credit.js"></script>
 <script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.duration.js"></script>
-
+<script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.artist-life-span.js"></script>
 </body>
 </html>

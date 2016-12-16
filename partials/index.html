@@ -5,7 +5,7 @@
                 <form ng-submit="searchArtist()" layout="column">
                     <md-input-container>
                         <label for="artistname">Name</label>
-                        <input id="artistname" ng-model="artist.name" />
+                        <input id="artistname" ng-model="artist.name"/>
                     </md-input-container>
                     <md-button type="submit" class="md-raised md-primary">Search</md-button>
                 </form>
@@ -21,7 +21,7 @@
                     <md-list-item class="md-2-line" ng-repeat="artist in artists" ng-click="showArtist(artist)">
                         <div class="md-list-item-text">
                             <h3>{{artist.name}}</h3>
-                            <p>{{artist.type}}, {{artist.country}}</p>
+                            <p>{{artist.type}}, {{artist.country}}, {{artist|ddrMbArtistLifeSpan}}</p>
                         </div>
                     </md-list-item>
                 </md-list>
@@ -34,7 +34,7 @@
                 <form layout="column" ng-submit="searchReleaseGroup()">
                     <md-input-container>
                         <label for="releaseGroupTitle">Title</label>
-                        <input id="releaseGroupTitle" ng-model="releaseGroup.title" />
+                        <input id="releaseGroupTitle" ng-model="releaseGroup.title"/>
                     </md-input-container>
                     <md-button type="submit" class="md-raised md-primary">Search
                     </md-button>
@@ -48,11 +48,11 @@
                 <form layout="column" ng-submit="searchRelease()">
                     <md-input-container>
                         <label for="releaseTitle">Title</label>
-                        <input id="releaseTitle" ng-model="release.title" />
+                        <input id="releaseTitle" ng-model="release.title"/>
                     </md-input-container>
                     <md-input-container>
                         <label for="releaseArtist">Artist</label>
-                        <input id="releaseArtist" ng-model="release.artist" />
+                        <input id="releaseArtist" ng-model="release.artist"/>
                     </md-input-container>
                     <md-button type="submit" class="md-raised md-primary">Search</md-button>
                 </form>
@@ -81,7 +81,7 @@
                 <form layout="column" ng-submit="searchRecording()">
                     <md-input-container>
                         <label for="recordingTitle">Title</label>
-                        <input id="recordingTitle" ng-model="recording.title" />
+                        <input id="recordingTitle" ng-model="recording.title"/>
                     </md-input-container>
                     <md-button type="submit" class="md-raised md-primary">Search</md-button>
                 </form>

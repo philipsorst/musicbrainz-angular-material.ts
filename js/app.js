@@ -3,6 +3,7 @@
 
     angular.module('ddr.musicbrainz.app', [
         'ddr.musicbrainz.controllers',
+        'ddr.musicbrainz.services',
         'ddr.musicbrainz.filters',
         'ngMaterial',
         'restangular',
@@ -93,7 +94,6 @@
         });
 
         $rootScope.toggleSidenav = function (menuId) {
-            console.log('toggle', menuId);
             $mdSidenav(menuId).toggle();
         };
 
@@ -162,6 +162,6 @@
     }
 
     angular.module('ddr.musicbrainz.controllers', []);
+    angular.module('ddr.musicbrainz.services', []);
     angular.module('ddr.musicbrainz.filters', []);
-
 })();
