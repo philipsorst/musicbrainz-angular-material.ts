@@ -7,6 +7,23 @@
 
     function Service() {
 
+        function stringifyArtistCredit(credits) {
+            if (angular.isUndefined(credits)) {
+                return '';
+            }
+
+            var result = '';
+            for (var i = 0; i < credits.length; i++) {
+                var credit = credits[i];
+                result += credit.artist.name;
+                if (angular.isDefined(credit.joinphrase)) {
+                    result += credit.joinphrase;
+                }
+            }
+
+            return result;
+        }
+
         function stringifyLifeSpan(artist) {
             if (angular.isUndefined(artist)) {
                 return '';
@@ -32,7 +49,8 @@
         }
 
         return {
-            'stringifyLifeSpan': stringifyLifeSpan
+            'stringifyLifeSpan': stringifyLifeSpan,
+            'stringifyArtistCredit': stringifyArtistCredit
         };
     }
 })();

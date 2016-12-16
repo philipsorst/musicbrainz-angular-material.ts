@@ -3,13 +3,17 @@
 
     angular.module('ddr.musicbrainz.controllers').controller('ddr.musicbrainz.controller.release_group', Controller);
 
-    Controller.$inject = ['$scope', 'Restangular', '$q', '$timeout', '$location', '$routeParams'];
+    Controller.$inject = ['$scope', 'Restangular', 'ddr.musicbrainz.service.artist', '$timeout', '$location', '$routeParams'];
 
-    function Controller($scope, restangular, $q, $timeout, $location, $routeParams) {
+    function Controller($scope, restangular, artistService, $timeout, $location, $routeParams) {
+        $scope.loading = true;
         restangular.one('release-group', $routeParams.id).get({'inc': 'releases+artist-credits'})
             .then(function (response) {
-                $scope.releases = response.releases;
-                $scope.setTitle(response.title);
+                $scope.releaseGroup = response;
+                $scope.setTitle(artistService.stringifyArtistCredit(response['artist-credit']) + ' - ' + response.title);
             })
+            .finally(function () {
+                $scope.loading = false;
+            });
     }
 })();

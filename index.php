@@ -48,7 +48,6 @@
                 <md-button ng-click="toggleSidenav('left')" class="md-icon-button" aria-label="Menu">
                     <md-icon>menu</md-icon>
                 </md-button>
-                <h1 ng-bind="title">Musicbrainz Browser</h1>
                 <span flex></span>
                 <md-button aria-label="Search" ng-click="showSearch = !showSearch" class="md-icon-button">
                     <md-icon>search</md-icon>
