@@ -11,9 +11,6 @@
             scope: {
                 artistCredits: '=ddrMbArtistCredit'
             },
-            link: function (scope, elm, attrs) {
-                console.log(scope);
-            },
             template: '<span ng-repeat="artistCredit in artistCredits"><a href="artist/{{artistCredit.artist.id}}" class="artist-credit">{{artistCredit.artist.name}}</a>{{artistCredit.joinPhrase}}</span>'
         }
     }

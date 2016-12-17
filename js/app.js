@@ -59,27 +59,6 @@
         RestangularProvider.setDefaultRequestParams({'fmt': 'json'});
         RestangularProvider.setDefaultHttpFields({cache: true});
 
-        // RestangularProvider.setRestangularFields({
-        //     selfLink: '_links.self.href'
-        // });
-        // RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
-        //     if ('getList' === operation) {
-        //         if (null !== response.headers('x-pagination-current-page')) {
-        //             data.pagination = {
-        //                 currentPage: response.headers('x-pagination-current-page'),
-        //                 perPage: response.headers('x-pagination-per-page'),
-        //                 total: response.headers('x-pagination-total'),
-        //                 totalPages: response.headers('x-pagination-total-pages')
-        //             };
-        //         }
-        //     }
-        //     return data;
-        // });
-
-        // $mdThemingProvider.theme('default')
-        //     .backgroundPalette('grey');
-
-
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
 
@@ -87,7 +66,7 @@
     }
 
     runBlock.$inject = ['$rootScope', '$mdSidenav', '$document', '$window', '$location', '$timeout', 'Restangular', '$mdToast'];
-    function runBlock($rootScope, $mdSidenav, $document, $window, $location, $timeout, Restangular, $mdToast) {
+    function runBlock($rootScope, $mdSidenav, $document, $window, $location, $timeout, restangular, $mdToast) {
 
         /* Collapse navbar on route change */
         $rootScope.$on('$routeChangeSuccess', function () {
