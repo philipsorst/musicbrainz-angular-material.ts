@@ -33,14 +33,16 @@
             var end = artist['life-span'].end;
             var ended = artist['life-span'].ended;
 
+            if (!begin && !end) {
+                return '';
+            }
+
             var ret = '';
 
             if (begin) {
                 ret += begin;
             }
-            if (begin && end) {
-                ret += ' - ';
-            }
+            ret += ' - ';
             if (end) {
                 ret += end;
             }

@@ -1,6 +1,15 @@
-<div layout="row" layout-align="center center" ng-show="loading">
+<div layout="row" layout-align="center center" ng-show="loading" class="md-padding">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
+
+<md-card ng-show="!loading">
+    <md-card-header>
+        <md-card-header-text>
+            <h1 class="md-headline">{{artist.name}}</h1>
+            <span class="md-subhead">{{artist.type}}, {{artist.country}}, {{artist|ddrMbArtistLifeSpan}}</span>
+        </md-card-header-text>
+    </md-card-header>
+</md-card>
 
 <md-card ng-show="!loading">
     <md-tabs md-border-bottom md-dynamic-height>
