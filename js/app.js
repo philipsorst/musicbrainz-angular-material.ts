@@ -5,6 +5,7 @@
         'ddr.musicbrainz.controllers',
         'ddr.musicbrainz.services',
         'ddr.musicbrainz.filters',
+        'ddr.musicbrainz.directives',
         'ngMaterial',
         'restangular',
         'ngRoute'
@@ -164,4 +165,5 @@
     angular.module('ddr.musicbrainz.controllers', []);
     angular.module('ddr.musicbrainz.services', []);
     angular.module('ddr.musicbrainz.filters', []);
+    angular.module('ddr.musicbrainz.directives', []);
 })();

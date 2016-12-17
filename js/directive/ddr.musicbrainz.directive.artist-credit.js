@@ -1,22 +1,20 @@
 (function () {
     'use strict';
 
-    angular.module('BandExchange.directives').directive('ddrMbArtistCredit', Directive);
+    angular.module('ddr.musicbrainz.directives').directive('ddrMbArtistCredit', Directive);
 
-    Directive.$inject = ['$rootScope'];
+    Directive.$inject = [];
 
-    function Directive($rootScope) {
+    function Directive() {
         return {
-            restrict: 'E',
+            restrict: 'A',
             scope: {
-                entity: '=',
-                published: '@',
-                enabled: '@'
+                artistCredits: '=ddrMbArtistCredit'
             },
-            replace: true,
             link: function (scope, elm, attrs) {
+                console.log(scope);
             },
-            template: '<button class="btn btn-default btn-icon" ng-disabled="disabled" ng-click="toggle()" title="{{title}}"><span class="fa fa-{{icon}} fa-fw"></span></button>'
+            template: '<span ng-repeat="artistCredit in artistCredits"><a href="artist/{{artistCredit.artist.id}}" class="artist-credit">{{artistCredit.artist.name}}</a>{{artistCredit.joinPhrase}}</span>'
         }
     }
 })();

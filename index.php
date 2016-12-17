@@ -114,6 +114,8 @@
 
 <script type="text/javascript" src="js/service/ddr.musicbrainz.service.artist.js"></script>
 
+<script type="text/javascript" src="js/directive/ddr.musicbrainz.directive.artist-credit.js"></script>
+
 <script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.artist-credit.js"></script>
 <script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.duration.js"></script>
 <script type="text/javascript" src="js/filter/ddr.musicbrainz.filter.artist-life-span.js"></script>

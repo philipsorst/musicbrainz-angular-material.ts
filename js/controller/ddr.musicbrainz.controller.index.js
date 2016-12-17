@@ -24,7 +24,7 @@
 
             var query = '';
             if (!isBlank($scope.artist.name)) {
-                query += 'artist:' + $scope.artist.name;
+                query += 'artist:(' + $scope.artist.name + ')';
             }
 
             if (isBlank(query)) {
@@ -53,14 +53,14 @@
 
             var query = '';
             if (!isBlank($scope.release.title)) {
-                query += 'release:' + $scope.release.title;
+                query += 'release:(' + $scope.release.title + ')';
             }
 
             if (!isBlank($scope.release.artist)) {
                 if (!isBlank(query)) {
                     query += ' AND '
                 }
-                query += 'artist:' + $scope.release.artist;
+                query += 'artist:(' + $scope.release.artist + ')';
             }
 
             if (isBlank(query)) {
