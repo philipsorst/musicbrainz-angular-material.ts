@@ -1,7 +1,13 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-//body {
-//    font-family: Roboto, 'Helvetica Neue', sans-serif;
+.mat-raised-button, .mat-tab-label {
+    text-transform: uppercase;
+}
+
+body {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
 //
 //    // Helps fonts on OSX looks more consistent with other systems
 //    // Isn't currently in button styles due to performance concerns
