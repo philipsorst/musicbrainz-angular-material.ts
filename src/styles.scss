@@ -1,11 +1,27 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+body {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
 .mat-raised-button, .mat-tab-label {
     text-transform: uppercase;
 }
 
-body {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
+.mat-drawer {
+    min-width: 15rem !important;
+}
+
+.mat-input-container {
+    width: 100%;
+}
+
+.mat-card.card-standalone {
+    margin: 0.5rem;
+}
+
+.loader > .mat-progress-spinner{
+    margin: 0 auto;
 }
 
 //

@@ -12,22 +12,26 @@ import {
     MdFormFieldModule,
     MdIconModule,
     MdInputModule,
-    MdListModule,
+    MdListModule, MdProgressSpinnerModule,
     MdSidenavModule,
     MdTabsModule,
     MdToolbarModule
 } from "@angular/material";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {SearchComponent} from "../component/search.component";
+import {FormsModule} from "@angular/forms";
+import {ArtistDetailComponent} from "../component/artist-detail.component";
 
 @NgModule({
     declarations: [
         AppComponent,
-        SearchComponent
+        SearchComponent,
+        ArtistDetailComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        FormsModule,
         RestangularModule.forRoot(RestangularConfigFactory),
         AppRoutingModule,
         MdToolbarModule,
@@ -39,6 +43,7 @@ import {SearchComponent} from "../component/search.component";
         MdCardModule,
         MdFormFieldModule,
         MdInputModule,
+        MdProgressSpinnerModule,
         OverlayModule
     ],
     providers: [],

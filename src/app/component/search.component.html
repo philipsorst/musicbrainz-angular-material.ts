@@ -1,16 +1,26 @@
 <md-tab-group backgroundColor="primary" color="accent">
     <md-tab label="Artist">
-        <md-card>
+        <md-card class="card-standalone">
             <md-card-content>
-                <form>
+                <form (ngSubmit)="searchArtist()" #artistSearchForm="ngForm">
                     <div>
                         <md-form-field>
-                            <input mdInput type="text" placeholder="Search" />
+                            <input mdInput type="text" placeholder="Search" [(ngModel)]="query.artists" name="artist" />
                         </md-form-field>
                     </div>
-                    <button md-raised-button md-block color="primary">Search</button>
+                    <button type="submit" md-raised-button md-block color="primary">Search</button>
                 </form>
             </md-card-content>
+        </md-card>
+
+        <div *ngIf="loading.artists" class="loader">
+            <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+        </div>
+
+        <md-card class="card-standalone" *ngIf="result.artists">
+            <md-nav-list>
+                <a md-list-item *ngFor="let artist of result.artists; trackBy: trackById" [routerLink]="['/artists', artist.id]">{{artist.name}}</a>
+            </md-nav-list>
         </md-card>
     </md-tab>
     <md-tab label="Release Group">
