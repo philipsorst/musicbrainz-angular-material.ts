@@ -10,9 +10,11 @@ import {
     MdButtonModule,
     MdCardModule,
     MdFormFieldModule,
+    MdGridListModule,
     MdIconModule,
     MdInputModule,
-    MdListModule, MdProgressSpinnerModule,
+    MdListModule,
+    MdProgressSpinnerModule,
     MdSidenavModule,
     MdTabsModule,
     MdToolbarModule
@@ -44,6 +46,7 @@ import {ArtistDetailComponent} from "../component/artist-detail.component";
         MdFormFieldModule,
         MdInputModule,
         MdProgressSpinnerModule,
+        MdGridListModule,
         OverlayModule
     ],
     providers: [],

@@ -1,0 +1,35 @@
+<div *ngIf="loading" class="loader">
+    <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</div>
+
+<div *ngIf="artist">
+    <md-card>
+        <h1>{{artist.name}}</h1>
+    </md-card>
+</div>
+
+<!--<md-card class="card-standalone">-->
+<!--<md-tab-group>-->
+<!--<md-tab label="Artist">-->
+<!--</md-tab>-->
+<!--<md-tab label="Release Group">-->
+<!--</md-tab>-->
+<!--<md-tab label="Release">-->
+<!--</md-tab>-->
+<!--<md-tab label="Recording">-->
+<!--</md-tab>-->
+<!--</md-tab-group>-->
+<!--</md-card>-->
+
+<md-card class="card-standalone">
+    <md-grid-list cols="3" rowHeight="1:1" *ngIf="releaseGroups">
+        <md-grid-tile *ngFor="let releaseGroup of releaseGroups">
+            <img src="http://coverartarchive.org/release-group/{{releaseGroup.id}}/front" />
+            <md-grid-tile-footer>
+                <h3 mat-line>{{releaseGroup.title}}</h3>
+                <!--<span mat-line>Human: {{dog.human}}</span>-->
+                <!--<mat-icon>star_border</mat-icon>-->
+            </md-grid-tile-footer>
+        </md-grid-tile>
+    </md-grid-list>
+</md-card>
