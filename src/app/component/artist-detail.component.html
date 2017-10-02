@@ -8,7 +8,7 @@
     </md-card>
 </div>
 
-<md-card class="card-standalone card-nopadding">
+<md-card class="card-standalone card-nopadding" *ngIf="!loading">
     <md-tab-group>
         <md-tab label="Album">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">

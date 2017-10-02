@@ -1,8 +1,8 @@
 import {FlexDate} from "./flex-date";
+import {MusicbrainzEntity} from "./musicbrainz-entity";
 
-export class ReleaseGroup {
+export class ReleaseGroup extends MusicbrainzEntity {
 
-    id: string;
     title: string;
     firstReleaseDate: FlexDate;
     primaryType: string;
