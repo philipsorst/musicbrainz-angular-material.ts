@@ -16,7 +16,7 @@
                               class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
-                        <h4 mat-line>{{releaseGroup['first-release-date']}}</h4>
+                        <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
                     </md-grid-tile-footer>
                 </md-grid-tile>
             </md-grid-list>
@@ -27,7 +27,7 @@
                               class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
-                        <h4 mat-line>{{releaseGroup['first-release-date']}}</h4>
+                        <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
                     </md-grid-tile-footer>
                 </md-grid-tile>
             </md-grid-list>
@@ -37,7 +37,7 @@
                 <md-grid-tile *ngFor="let releaseGroup of eps" [releaseGroupCover]="releaseGroup" class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
-                        <h4 mat-line>{{releaseGroup['first-release-date']}}</h4>
+                        <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
                     </md-grid-tile-footer>
                 </md-grid-tile>
             </md-grid-list>
@@ -48,7 +48,7 @@
                               class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
-                        <h4 mat-line>{{releaseGroup['first-release-date']}}</h4>
+                        <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
                     </md-grid-tile-footer>
                 </md-grid-tile>
             </md-grid-list>

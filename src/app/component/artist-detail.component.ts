@@ -4,15 +4,16 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {MdGridList} from "@angular/material";
 import {ObservableMedia} from "@angular/flex-layout";
+import {Artist} from "../model/artist";
+import {ReleaseGroup} from "../model/release-group";
+import {PaginatedArray} from "../module/paginated-array";
 
 @Component({
     templateUrl: './artist-detail.component.html',
 })
 export class ArtistDetailComponent implements OnInit, OnDestroy {
 
-    public artist: any;
-
-    public releaseGroups: any;
+    public artist: Artist;
 
     public loading: boolean = false;
 
@@ -66,21 +67,19 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                 (response) => {
                     this.artist = response;
                     console.log(this.artist);
-                    this.restangular.one('release-group').get({
+                    this.restangular.all('release-group').getList({
                         'artist': this.artist.id,
                         'limit': 100
                     }).subscribe(
-                        (response) => {
-                            console.log(response);
+                        (releaseGroups: PaginatedArray<ReleaseGroup>) => {
                             this.loading = false;
-                            let unsortedReleaseGroups = response['release-groups'];
-                            let sortedReleaseGroups = unsortedReleaseGroups.sort((left, right) => {
-                                return right['first-release-date'].localeCompare(left['first-release-date']);
+                            let sortedReleaseGroups = releaseGroups.sort((left: ReleaseGroup, right: ReleaseGroup) => {
+                                return right.firstReleaseDate.compareTo(left.firstReleaseDate);
                             });
 
                             for (let releaseGroup of sortedReleaseGroups) {
-                                console.log(releaseGroup['secondary-types']);
-                                switch (releaseGroup['primary-type']) {
+                                console.log(releaseGroup.secondaryTypes);
+                                switch (releaseGroup.primaryType) {
                                     case 'Album': {
                                         this.albums.push(releaseGroup);
                                         break;
@@ -99,9 +98,6 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                                     }
                                 }
                             }
-
-                            this.releaseGroups = sortedReleaseGroups;
-                            console.log(this.releaseGroups);
                         },
                         (response) => {
                             console.error(response);

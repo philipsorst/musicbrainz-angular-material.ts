@@ -25,13 +25,15 @@ import {SearchComponent} from "../component/search.component";
 import {FormsModule} from "@angular/forms";
 import {ArtistDetailComponent} from "../component/artist-detail.component";
 import {ReleaseGroupCoverDirective} from "../directive/release-group-cover.directive";
+import {FlexDatePipe} from "../pipe/flex-date.pipe";
 
 @NgModule({
     declarations: [
         AppComponent,
         SearchComponent,
         ArtistDetailComponent,
-        ReleaseGroupCoverDirective
+        ReleaseGroupCoverDirective,
+        FlexDatePipe
     ],
     imports: [
         BrowserModule,
