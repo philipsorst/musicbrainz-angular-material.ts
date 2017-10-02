@@ -1,7 +1,9 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Restangular} from "ngx-restangular";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
+import {MdGridList} from "@angular/material";
+import {ObservableMedia} from "@angular/flex-layout";
 
 @Component({
     templateUrl: './artist-detail.component.html',
@@ -16,7 +18,32 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
 
     private routeSubscription: Subscription;
 
-    constructor(private restangular: Restangular, private route: ActivatedRoute) {
+    private mediaSubscription: Subscription;
+
+    @ViewChild(MdGridList)
+    private gridList;
+
+    constructor(private restangular: Restangular, private route: ActivatedRoute, private media: ObservableMedia) {
+    }
+
+    public numCols() {
+        if (this.media.isActive('xl')) {
+            return 6;
+        }
+        else if (this.media.isActive('lg')) {
+            return 5;
+        }
+        else if (this.media.isActive('md')) {
+            return 4;
+        }
+        else if (this.media.isActive('sm')) {
+            return 3;
+        }
+        else if (this.media.isActive('xs')) {
+            return 2;
+        }
+
+        return 1;
     }
 
     ngOnInit(): void {
@@ -34,7 +61,12 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                         (response) => {
                             console.log(response);
                             this.loading = false;
-                            this.releaseGroups = response['release-groups'];
+                            let unsortedReleaseGroups = response['release-groups'];
+                            let sortedReleaseGroups = unsortedReleaseGroups.sort((left, right) => {
+                                return right['first-release-date'].localeCompare(left['first-release-date']);
+                            });
+                            this.releaseGroups = sortedReleaseGroups;
+                            console.log(this.releaseGroups);
                         },
                         (response) => {
                             console.error(response);

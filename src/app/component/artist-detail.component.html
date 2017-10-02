@@ -2,7 +2,7 @@
     <md-progress-spinner mode="indeterminate"></md-progress-spinner>
 </div>
 
-<div *ngIf="artist">
+<div *ngIf="!loading && artist">
     <md-card>
         <h1>{{artist.name}}</h1>
     </md-card>
@@ -21,14 +21,12 @@
 <!--</md-tab-group>-->
 <!--</md-card>-->
 
-<md-card class="card-standalone">
-    <md-grid-list cols="3" rowHeight="1:1" *ngIf="releaseGroups">
-        <md-grid-tile *ngFor="let releaseGroup of releaseGroups">
-            <img src="http://coverartarchive.org/release-group/{{releaseGroup.id}}/front" />
+<md-card class="card-standalone release-groups" *ngIf="!loading && releaseGroups">
+    <md-grid-list [cols]="numCols()" rowHeight="1:1">
+        <md-grid-tile *ngFor="let releaseGroup of releaseGroups" [releaseGroupCover]="releaseGroup">
             <md-grid-tile-footer>
                 <h3 mat-line>{{releaseGroup.title}}</h3>
-                <!--<span mat-line>Human: {{dog.human}}</span>-->
-                <!--<mat-icon>star_border</mat-icon>-->
+                <h4 mat-line>{{releaseGroup['first-release-date']}}</h4>
             </md-grid-tile-footer>
         </md-grid-tile>
     </md-grid-list>
