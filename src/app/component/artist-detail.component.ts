@@ -16,6 +16,18 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
 
     public loading: boolean = false;
 
+    public albums: any = [];
+
+    public eps: any = [];
+
+    public singles: any = [];
+
+    public compilations: any = [];
+
+    public live: any[];
+
+    public other: any = [];
+
     private routeSubscription: Subscription;
 
     private mediaSubscription: Subscription;
@@ -65,6 +77,29 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                             let sortedReleaseGroups = unsortedReleaseGroups.sort((left, right) => {
                                 return right['first-release-date'].localeCompare(left['first-release-date']);
                             });
+
+                            for (let releaseGroup of sortedReleaseGroups) {
+                                console.log(releaseGroup['secondary-types']);
+                                switch (releaseGroup['primary-type']) {
+                                    case 'Album': {
+                                        this.albums.push(releaseGroup);
+                                        break;
+                                    }
+                                    case 'EP': {
+                                        this.eps.push(releaseGroup);
+                                        break;
+                                    }
+                                    case 'Single': {
+                                        this.singles.push(releaseGroup);
+                                        break;
+                                    }
+                                    default: {
+                                        this.other.push(releaseGroup);
+                                        break;
+                                    }
+                                }
+                            }
+
                             this.releaseGroups = sortedReleaseGroups;
                             console.log(this.releaseGroups);
                         },

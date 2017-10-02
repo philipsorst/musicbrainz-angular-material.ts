@@ -20,14 +20,16 @@ body {
     margin: 0.5rem;
 }
 
-.loader > .mat-progress-spinner{
+.mat-card.card-nopadding {
+    padding: 0;
+}
+
+.loader > .mat-progress-spinner {
     margin: 0 auto;
 }
 
-.mat-card.release-groups {
-    .mat-grid-tile {
-        background-size: cover;
-    }
+.mat-grid-tile.release-group {
+    background-size: cover;
 }
 
 //
