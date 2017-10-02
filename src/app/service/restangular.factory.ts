@@ -6,12 +6,6 @@ export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setDefaultRequestParams({'fmt': 'json'});
     RestangularProvider.setDefaultHttpFields({cache: true});
     RestangularProvider.addResponseInterceptor((data, operation, what, url, response) => {
-        console.log('data', data);
-        console.log('operation', operation);
-        console.log('what', what);
-        console.log('url', url);
-        console.log('response', response);
-
         if ('release-group' === what && 'getList' === operation) {
 
             let collectionResponse: PaginatedArray<ReleaseGroup> = new PaginatedArray<ReleaseGroup>();
@@ -25,6 +19,13 @@ export function RestangularConfigFactory(RestangularProvider) {
             return collectionResponse;
         }
 
+        console.warn('Unhandled response', {
+            'data': data,
+            'operation': operation,
+            'what': what,
+            'url': url,
+            'response': response
+        });
         return data;
     })
 }

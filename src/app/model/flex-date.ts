@@ -7,8 +7,13 @@ export class FlexDate {
     precision: FlexDatePrecision = FlexDatePrecision.None
 
     public static parse(dateString: string): FlexDate {
-        let flexDate: FlexDate = new FlexDate();
         let parts = dateString.split("-");
+        if (parts.length === 1 && parts[0] === '') {
+            return null;
+        }
+
+        let flexDate: FlexDate = new FlexDate();
+        console.log('parts', parts);
         if (parts.length > 0) {
             flexDate.year = +parts[0];
             flexDate.precision = FlexDatePrecision.Year;
@@ -23,6 +28,22 @@ export class FlexDate {
         }
 
         return flexDate;
+    }
+
+    public static compare(left: FlexDate, right: FlexDate): number {
+        if (!left && !right) {
+            return 0;
+        }
+
+        if (left && !right) {
+            return 1;
+        }
+
+        if (!left && right) {
+            return -1;
+        }
+
+        return left.compareTo(right);
     }
 
     public compareTo(other: FlexDate): number {

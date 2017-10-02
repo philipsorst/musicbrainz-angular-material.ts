@@ -7,6 +7,7 @@ import {ObservableMedia} from "@angular/flex-layout";
 import {Artist} from "../model/artist";
 import {ReleaseGroup} from "../model/release-group";
 import {PaginatedArray} from "../module/paginated-array";
+import {FlexDate} from "../model/flex-date";
 
 @Component({
     templateUrl: './artist-detail.component.html',
@@ -74,11 +75,10 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                         (releaseGroups: PaginatedArray<ReleaseGroup>) => {
                             this.loading = false;
                             let sortedReleaseGroups = releaseGroups.sort((left: ReleaseGroup, right: ReleaseGroup) => {
-                                return right.firstReleaseDate.compareTo(left.firstReleaseDate);
+                                return FlexDate.compare(right.firstReleaseDate, left.firstReleaseDate);
                             });
 
                             for (let releaseGroup of sortedReleaseGroups) {
-                                console.log(releaseGroup.secondaryTypes);
                                 switch (releaseGroup.primaryType) {
                                     case 'Album': {
                                         this.albums.push(releaseGroup);
@@ -110,9 +110,6 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                     this.loading = false;
                 }
             );
-
-
-            // https://musicbrainz.org/ws/2/release-group/?artist=7527f6c2-d762-4b88-b5e2-9244f1e34c46&limit=50&fmt=json
 
         });
     }

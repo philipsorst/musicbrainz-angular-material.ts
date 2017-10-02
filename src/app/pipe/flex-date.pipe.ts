@@ -5,6 +5,11 @@ import {FlexDatePrecision} from "../model/flex-date-precision";
 @Pipe({name: 'flexDate'})
 export class FlexDatePipe implements PipeTransform {
     transform(value: FlexDate): string {
+
+        if (!value) {
+            return '';
+        }
+
         switch (value.precision) {
             case FlexDatePrecision.Day: {
                 return value.year + '-' + value.month + '-' + value.day;
