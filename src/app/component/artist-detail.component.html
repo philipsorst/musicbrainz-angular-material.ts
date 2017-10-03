@@ -4,15 +4,15 @@
 
 <div *ngIf="!loading && artist">
     <md-card>
-        <h1>{{artist.name}}</h1>
+        <h1 class="mat-headline">{{artist.name}}</h1>
     </md-card>
 </div>
 
 <md-card class="card-standalone card-nopadding" *ngIf="!loading">
     <md-tab-group>
-        <md-tab label="Album">
+        <md-tab label="Album" *ngIf="releaseGroups.album.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
-                <md-grid-tile *ngFor="let releaseGroup of albums" [releaseGroupCover]="releaseGroup"
+                <md-grid-tile *ngFor="let releaseGroup of releaseGroups.album" [releaseGroupCover]="releaseGroup"
                               class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
@@ -21,9 +21,9 @@
                 </md-grid-tile>
             </md-grid-list>
         </md-tab>
-        <md-tab label="Single">
+        <md-tab label="Single" *ngIf="releaseGroups.single.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
-                <md-grid-tile *ngFor="let releaseGroup of singles" [releaseGroupCover]="releaseGroup"
+                <md-grid-tile *ngFor="let releaseGroup of releaseGroups.single" [releaseGroupCover]="releaseGroup"
                               class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
@@ -32,9 +32,10 @@
                 </md-grid-tile>
             </md-grid-list>
         </md-tab>
-        <md-tab label="EP">
+        <md-tab label="EP" *ngIf="releaseGroups.ep.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
-                <md-grid-tile *ngFor="let releaseGroup of eps" [releaseGroupCover]="releaseGroup" class="release-group">
+                <md-grid-tile *ngFor="let releaseGroup of releaseGroups.ep" [releaseGroupCover]="releaseGroup"
+                              class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
@@ -42,9 +43,20 @@
                 </md-grid-tile>
             </md-grid-list>
         </md-tab>
-        <md-tab label="Other">
+        <md-tab label="Broadcast" *ngIf="releaseGroups.broadcast.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
-                <md-grid-tile *ngFor="let releaseGroup of other" [releaseGroupCover]="releaseGroup"
+                <md-grid-tile *ngFor="let releaseGroup of releaseGroups.broadcast" [releaseGroupCover]="releaseGroup"
+                              class="release-group">
+                    <md-grid-tile-footer>
+                        <h3 mat-line>{{releaseGroup.title}}</h3>
+                        <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
+                    </md-grid-tile-footer>
+                </md-grid-tile>
+            </md-grid-list>
+        </md-tab>
+        <md-tab label="Other" *ngIf="releaseGroups.other.length > 0">
+            <md-grid-list [cols]="numCols()" rowHeight="1:1">
+                <md-grid-tile *ngFor="let releaseGroup of releaseGroups.other" [releaseGroupCover]="releaseGroup"
                               class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>

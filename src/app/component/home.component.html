@@ -1,5 +1,8 @@
 <md-card class="card-standalone card-compact" *ngIf="recentArtists">
     <md-nav-list>
-        <a md-list-item *ngFor="let artist of recentArtists" [routerLink]="['/artists', artist.id]">{{artist.name}}</a>
+        <a md-list-item *ngFor="let artist of recentArtists" [routerLink]="['/artists', artist.id]">
+            <h3 mat-line>{{artist.name}}</h3>
+            <p mat-line>{{artist.disambiguation}}</p>
+        </a>
     </md-nav-list>
 </md-card>

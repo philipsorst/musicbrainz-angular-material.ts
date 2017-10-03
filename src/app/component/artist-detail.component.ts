@@ -19,17 +19,13 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
 
     public loading: boolean = false;
 
-    public albums: any = [];
-
-    public eps: any = [];
-
-    public singles: any = [];
-
-    public compilations: any = [];
-
-    public live: any[];
-
-    public other: any = [];
+    public releaseGroups = {
+        album: [],
+        single: [],
+        ep: [],
+        broadcast: [],
+        other: []
+    };
 
     private routeSubscription: Subscription;
 
@@ -61,6 +57,11 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
         return 1;
     }
 
+    public selectedSecondaryType(releaseGroup: ReleaseGroup) {
+        console.log(releaseGroup.secondaryTypes);
+        return false;
+    }
+
     ngOnInit(): void {
         this.routeSubscription = this.route.params.subscribe((parameters) => {
             this.loading = true;
@@ -83,20 +84,27 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                             for (let releaseGroup of sortedReleaseGroups) {
                                 switch (releaseGroup.primaryType) {
                                     case 'Album': {
-                                        this.albums.push(releaseGroup);
+                                        this.releaseGroups.album.push(releaseGroup);
                                         break;
                                     }
                                     case 'EP': {
-                                        this.eps.push(releaseGroup);
+                                        this.releaseGroups.ep.push(releaseGroup);
                                         break;
                                     }
                                     case 'Single': {
-                                        this.singles.push(releaseGroup);
+                                        this.releaseGroups.single.push(releaseGroup);
+                                        break;
+                                    }
+                                    case 'Broadcast': {
+                                        this.releaseGroups.broadcast.push(releaseGroup);
+                                        break;
+                                    }
+                                    case 'Other': {
+                                        this.releaseGroups.other.push(releaseGroup);
                                         break;
                                     }
                                     default: {
-                                        this.other.push(releaseGroup);
-                                        break;
+                                        console.error('Unknown release group type', releaseGroup.primaryType)
                                     }
                                 }
                             }

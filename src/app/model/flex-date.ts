@@ -13,7 +13,6 @@ export class FlexDate {
         }
 
         let flexDate: FlexDate = new FlexDate();
-        console.log('parts', parts);
         if (parts.length > 0) {
             flexDate.year = +parts[0];
             flexDate.precision = FlexDatePrecision.Year;

@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
 import {Restangular} from "ngx-restangular";
+import {PaginatedArray} from "../module/paginated-array";
+import {Artist} from "../model/artist";
 
 @Component({
     templateUrl: './search.component.html',
@@ -23,8 +25,8 @@ export class SearchComponent {
     public searchArtist() {
         this.loading.artists = true;
         this.result.artists= null;
-        this.restangular.one('artist').get({'query': 'artist:(' + this.query.artists + ')'}).subscribe((response) => {
-            this.result.artists = response.artists;
+        this.restangular.all('artist').getList({'query': 'artist:(' + this.query.artists + ')'}).subscribe((artists: PaginatedArray<Artist>) => {
+            this.result.artists = artists;
             this.loading.artists = false;
         }, (response) => {
             console.error(response);
