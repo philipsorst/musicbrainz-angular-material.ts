@@ -7,6 +7,12 @@
             <a md-list-item
                tabindex="-1"
                (click)="sidenav.close()"
+               [routerLink]="['/']">
+                Home
+            </a>
+            <a md-list-item
+               tabindex="-1"
+               (click)="sidenav.close()"
                [routerLink]="['/search']">
                 Search
             </a>

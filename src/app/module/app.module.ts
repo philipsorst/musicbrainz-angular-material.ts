@@ -26,10 +26,13 @@ import {FormsModule} from "@angular/forms";
 import {ArtistDetailComponent} from "../component/artist-detail.component";
 import {ReleaseGroupCoverDirective} from "../directive/release-group-cover.directive";
 import {FlexDatePipe} from "../pipe/flex-date.pipe";
+import {HomeComponent} from "../component/home.component";
+import {UserService} from "../service/user.service";
 
 @NgModule({
     declarations: [
         AppComponent,
+        HomeComponent,
         SearchComponent,
         ArtistDetailComponent,
         ReleaseGroupCoverDirective,
@@ -55,7 +58,9 @@ import {FlexDatePipe} from "../pipe/flex-date.pipe";
         MdGridListModule,
         OverlayModule
     ],
-    providers: [],
+    providers: [
+        UserService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

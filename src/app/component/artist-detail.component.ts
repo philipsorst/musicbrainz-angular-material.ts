@@ -8,6 +8,7 @@ import {Artist} from "../model/artist";
 import {ReleaseGroup} from "../model/release-group";
 import {PaginatedArray} from "../module/paginated-array";
 import {FlexDate} from "../model/flex-date";
+import {UserService} from "../service/user.service";
 
 @Component({
     templateUrl: './artist-detail.component.html',
@@ -37,7 +38,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
     @ViewChild(MdGridList)
     private gridList;
 
-    constructor(private restangular: Restangular, private route: ActivatedRoute, private media: ObservableMedia) {
+    constructor(private restangular: Restangular, private route: ActivatedRoute, private media: ObservableMedia, private userService: UserService) {
     }
 
     public numCols() {
@@ -68,6 +69,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                 (response) => {
                     this.artist = response;
                     console.log(this.artist);
+                    this.userService.addRecentArtist(this.artist);
                     this.restangular.all('release-group').getList({
                         'artist': this.artist.id,
                         'limit': 100
