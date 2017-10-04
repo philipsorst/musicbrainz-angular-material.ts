@@ -9,6 +9,7 @@ import {ReleaseGroup} from "../model/release-group";
 import {PaginatedArray} from "../module/paginated-array";
 import {FlexDate} from "../model/flex-date";
 import {UserService} from "../service/user.service";
+import {MusicbrainzEntity} from "../model/musicbrainz-entity";
 
 @Component({
     templateUrl: './artist-detail.component.html',
@@ -26,6 +27,8 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
         broadcast: [],
         other: []
     };
+
+    public secondaryTypes: Array<string> = [];
 
     private routeSubscription: Subscription;
 
@@ -57,9 +60,8 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
         return 1;
     }
 
-    public selectedSecondaryType(releaseGroup: ReleaseGroup) {
-        console.log(releaseGroup.secondaryTypes);
-        return false;
+    public trackById(index: number, musicbrainzEntity: MusicbrainzEntity): string {
+        return musicbrainzEntity.id;
     }
 
     ngOnInit(): void {

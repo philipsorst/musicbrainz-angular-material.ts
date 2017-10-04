@@ -12,8 +12,9 @@
     <md-tab-group>
         <md-tab label="Album" *ngIf="releaseGroups.album.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
-                <md-grid-tile *ngFor="let releaseGroup of releaseGroups.album" [releaseGroupCover]="releaseGroup"
-                              class="release-group">
+                <md-grid-tile
+                        *ngFor="let releaseGroup of releaseGroups.album | secondaryType:secondaryTypes; trackBy: trackById"
+                        [releaseGroupCover]="releaseGroup" class="release-group">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>

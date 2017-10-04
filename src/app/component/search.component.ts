@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {Restangular} from "ngx-restangular";
 import {PaginatedArray} from "../module/paginated-array";
 import {Artist} from "../model/artist";
+import {MusicbrainzEntity} from "../model/musicbrainz-entity";
 
 @Component({
     templateUrl: './search.component.html',
@@ -34,7 +35,7 @@ export class SearchComponent {
         });
     }
 
-    public trackById(index: number, musicbrainzEntity: any): number {
+    public trackById(index: number, musicbrainzEntity: MusicbrainzEntity): string {
         return musicbrainzEntity.id;
     }
 }

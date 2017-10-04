@@ -28,6 +28,7 @@ import {ReleaseGroupCoverDirective} from "../directive/release-group-cover.direc
 import {FlexDatePipe} from "../pipe/flex-date.pipe";
 import {HomeComponent} from "../component/home.component";
 import {UserService} from "../service/user.service";
+import {SecondaryTypePipe} from "../pipe/secondary-type.pipe";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {UserService} from "../service/user.service";
         SearchComponent,
         ArtistDetailComponent,
         ReleaseGroupCoverDirective,
-        FlexDatePipe
+        FlexDatePipe,
+        SecondaryTypePipe
     ],
     imports: [
         BrowserModule,
