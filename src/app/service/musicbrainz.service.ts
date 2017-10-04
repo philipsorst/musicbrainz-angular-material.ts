@@ -13,8 +13,10 @@ export class MusicbrainzService {
 
     public listAllReleaseGroups(artistId: string): Promise<Array<ReleaseGroup>> {
 
-        let localRestangular = this.restangular;
         let allReleaseGroups: Array<ReleaseGroup> = [];
+
+        let localRestangular = this.restangular;
+
         let limit = 100;
 
         function fetchReleaseGroups(artistId: string, offset: number, limit: number = 100): Observable<PaginatedArray<ReleaseGroup>> {
