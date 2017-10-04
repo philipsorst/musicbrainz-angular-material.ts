@@ -29,6 +29,7 @@ import {FlexDatePipe} from "../pipe/flex-date.pipe";
 import {HomeComponent} from "../component/home.component";
 import {UserService} from "../service/user.service";
 import {SecondaryTypePipe} from "../pipe/secondary-type.pipe";
+import {MusicbrainzService} from "../service/musicbrainz.service";
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import {SecondaryTypePipe} from "../pipe/secondary-type.pipe";
         OverlayModule
     ],
     providers: [
-        UserService
+        UserService,
+        MusicbrainzService
     ],
     bootstrap: [AppComponent]
 })

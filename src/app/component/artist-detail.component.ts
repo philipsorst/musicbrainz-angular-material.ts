@@ -6,10 +6,10 @@ import {MdGridList} from "@angular/material";
 import {ObservableMedia} from "@angular/flex-layout";
 import {Artist} from "../model/artist";
 import {ReleaseGroup} from "../model/release-group";
-import {PaginatedArray} from "../module/paginated-array";
 import {FlexDate} from "../model/flex-date";
 import {UserService} from "../service/user.service";
 import {MusicbrainzEntity} from "../model/musicbrainz-entity";
+import {MusicbrainzService} from "../service/musicbrainz.service";
 
 @Component({
     templateUrl: './artist-detail.component.html',
@@ -37,7 +37,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
     @ViewChild(MdGridList)
     private gridList;
 
-    constructor(private restangular: Restangular, private route: ActivatedRoute, private media: ObservableMedia, private userService: UserService) {
+    constructor(private restangular: Restangular, private route: ActivatedRoute, private media: ObservableMedia, private userService: UserService, private musicbrainzService: MusicbrainzService) {
     }
 
     public numCols() {
@@ -73,49 +73,47 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                     this.artist = response;
                     console.log(this.artist);
                     this.userService.addRecentArtist(this.artist);
-                    this.restangular.all('release-group').getList({
-                        'artist': this.artist.id,
-                        'limit': 100
-                    }).subscribe(
-                        (releaseGroups: PaginatedArray<ReleaseGroup>) => {
-                            this.loading = false;
-                            let sortedReleaseGroups = releaseGroups.sort((left: ReleaseGroup, right: ReleaseGroup) => {
-                                return FlexDate.compare(right.firstReleaseDate, left.firstReleaseDate);
-                            });
+                    this.musicbrainzService.listAllReleaseGroups(id)
+                        .then(
+                            (releaseGroups: Array<ReleaseGroup>) => {
+                                console.log('releaseGroups', releaseGroups);
+                                this.loading = false;
+                                let sortedReleaseGroups = releaseGroups.sort((left: ReleaseGroup, right: ReleaseGroup) => {
+                                    return FlexDate.compare(right.firstReleaseDate, left.firstReleaseDate);
+                                });
 
-                            for (let releaseGroup of sortedReleaseGroups) {
-                                switch (releaseGroup.primaryType) {
-                                    case 'Album': {
-                                        this.releaseGroups.album.push(releaseGroup);
-                                        break;
-                                    }
-                                    case 'EP': {
-                                        this.releaseGroups.ep.push(releaseGroup);
-                                        break;
-                                    }
-                                    case 'Single': {
-                                        this.releaseGroups.single.push(releaseGroup);
-                                        break;
-                                    }
-                                    case 'Broadcast': {
-                                        this.releaseGroups.broadcast.push(releaseGroup);
-                                        break;
-                                    }
-                                    case 'Other': {
-                                        this.releaseGroups.other.push(releaseGroup);
-                                        break;
-                                    }
-                                    default: {
-                                        console.error('Unknown release group type', releaseGroup.primaryType)
+                                for (let releaseGroup of sortedReleaseGroups) {
+                                    switch (releaseGroup.primaryType) {
+                                        case 'Album': {
+                                            this.releaseGroups.album.push(releaseGroup);
+                                            break;
+                                        }
+                                        case 'EP': {
+                                            this.releaseGroups.ep.push(releaseGroup);
+                                            break;
+                                        }
+                                        case 'Single': {
+                                            this.releaseGroups.single.push(releaseGroup);
+                                            break;
+                                        }
+                                        case 'Broadcast': {
+                                            this.releaseGroups.broadcast.push(releaseGroup);
+                                            break;
+                                        }
+                                        case 'Other': {
+                                            this.releaseGroups.other.push(releaseGroup);
+                                            break;
+                                        }
+                                        default: {
+                                            console.warn('Unknown release group type', releaseGroup.primaryType)
+                                        }
                                     }
                                 }
                             }
-                        },
-                        (response) => {
-                            console.error(response);
-                            this.loading = false;
-                        }
-                    );
+                        ).catch((response) => {
+                        console.error(response);
+                        this.loading = false;
+                    });
                 },
                 (response) => {
                     console.error(response);
