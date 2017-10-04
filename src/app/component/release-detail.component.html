@@ -1,0 +1,19 @@
+<div *ngIf="loading" class="loader">
+    <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</div>
+
+<md-card *ngIf="!loading && release != null">
+    <h2 class="mat-title" [artist-credits]="release.artistCredits"></h2>
+    <h1 class="mat-headline">{{release.title}}</h1>
+</md-card>
+
+<div *ngIf="!loading && release != null">
+    <md-card *ngFor="let medium of release.media" class="card-standalone card-compact">
+        <md-list>
+            <md-list-item *ngFor="let track of medium.tracks">
+                <h3 mat-line>{{track.title}}</h3>
+                <p [artist-credits]="track.recording.artistCredits" mat-line></p>
+            </md-list-item>
+        </md-list>
+    </md-card>
+</div>

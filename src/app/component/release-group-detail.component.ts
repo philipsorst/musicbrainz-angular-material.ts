@@ -18,7 +18,6 @@ export class ReleaseGroupDetailComponent implements OnInit, OnDestroy {
 
     private routeSubscription: Subscription;
 
-
     constructor(private route: ActivatedRoute, private musicbrainzService: MusicbrainzService) {
     }
 

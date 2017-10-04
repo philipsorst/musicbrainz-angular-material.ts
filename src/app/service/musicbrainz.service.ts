@@ -65,4 +65,8 @@ export class MusicbrainzService {
     public findReleaseGroup(id: string): Promise<ReleaseGroup> {
         return this.restangular.one('release-group', id).get({'inc': 'artists'}).toPromise();
     }
+
+    public findRelease(id: string): Promise<Release> {
+        return this.restangular.one('release', id).get({'inc': 'artists+recordings+artist-credits'}).toPromise();
+    }
 }

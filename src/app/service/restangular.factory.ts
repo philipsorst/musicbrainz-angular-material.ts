@@ -69,7 +69,7 @@ export function RestangularConfigFactory(RestangularProvider) {
         if ('release' === what) {
 
             if (!data.hasOwnProperty('releases')) {
-                return Artist.parse(data);
+                return Release.parse(data);
             }
 
             let collectionResponse: PaginatedArray<Release> = new PaginatedArray<Release>();

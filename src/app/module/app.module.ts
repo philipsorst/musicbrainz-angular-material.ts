@@ -32,6 +32,7 @@ import {SecondaryTypePipe} from "../pipe/secondary-type.pipe";
 import {MusicbrainzService} from "../service/musicbrainz.service";
 import {ReleaseGroupDetailComponent} from "../component/release-group-detail.component";
 import {ArtistCreditsComponent} from "../component/artist-credits.component";
+import {ReleaseDetailComponent} from "../component/release-detail.component";
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import {ArtistCreditsComponent} from "../component/artist-credits.component";
         SearchComponent,
         ArtistDetailComponent,
         ReleaseGroupDetailComponent,
+        ReleaseDetailComponent,
         ReleaseGroupCoverDirective,
         FlexDatePipe,
         SecondaryTypePipe
