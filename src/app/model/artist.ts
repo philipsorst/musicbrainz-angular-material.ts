@@ -5,6 +5,7 @@ export class Artist extends MusicbrainzEntity {
     disambiguation: string;
     country: string;
     type: string;
+    sortName: string;
 
     public static parse(data: any): Artist {
         let artist = new Artist();
@@ -13,6 +14,7 @@ export class Artist extends MusicbrainzEntity {
         artist.disambiguation = data.disambiguation;
         artist.country = data.country;
         artist.type = data.type;
+        artist.sortName = data['sort-name'];
 
         return artist;
     }

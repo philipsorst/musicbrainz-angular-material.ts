@@ -1,6 +1,7 @@
 import {ReleaseGroup} from "../model/release-group";
 import {PaginatedArray} from "../module/paginated-array";
 import {Artist} from "../model/artist";
+import {Release} from "../model/release";
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('https://musicbrainz.org/ws/2/');
@@ -15,6 +16,10 @@ export function RestangularConfigFactory(RestangularProvider) {
 
         if (data.hasOwnProperty('release-group-count')) {
             return data['release-group-count'];
+        }
+
+        if (data.hasOwnProperty('release-count')) {
+            return data['release-count'];
         }
 
         console.error('No count found', data);
@@ -32,30 +37,16 @@ export function RestangularConfigFactory(RestangularProvider) {
             return data['release-group-offset'];
         }
 
+        if (data.hasOwnProperty('release-offset')) {
+            return data['release-offset'];
+        }
+
         console.error('No offset found', data);
 
         return 0;
     }
 
     RestangularProvider.addResponseInterceptor((data, operation, what, url, response) => {
-
-        if ('release-group' === what) {
-
-            if (!data.hasOwnProperty('release-groups')) {
-                return ReleaseGroup.parse(data);
-            }
-
-            let collectionResponse: PaginatedArray<ReleaseGroup> = new PaginatedArray<ReleaseGroup>();
-            for (let rawReleaseGroup of data['release-groups']) {
-                collectionResponse.push(ReleaseGroup.parse(rawReleaseGroup));
-            }
-            collectionResponse.pagination = {
-                'count': findCount(data),
-                'offset': findOffset(data)
-            };
-
-            return collectionResponse;
-        }
 
         if ('artist' === what) {
 
@@ -72,7 +63,41 @@ export function RestangularConfigFactory(RestangularProvider) {
                 'offset': findOffset(data)
             };
 
-            console.log(collectionResponse);
+            return collectionResponse;
+        }
+
+        if ('release' === what) {
+
+            if (!data.hasOwnProperty('releases')) {
+                return Artist.parse(data);
+            }
+
+            let collectionResponse: PaginatedArray<Release> = new PaginatedArray<Release>();
+            for (let rawRelease of data['releases']) {
+                collectionResponse.push(Release.parse(rawRelease));
+            }
+            collectionResponse.pagination = {
+                'count': findCount(data),
+                'offset': findOffset(data)
+            };
+
+            return collectionResponse;
+        }
+
+        if ('release-group' === what) {
+
+            if (!data.hasOwnProperty('release-groups')) {
+                return ReleaseGroup.parse(data);
+            }
+
+            let collectionResponse: PaginatedArray<ReleaseGroup> = new PaginatedArray<ReleaseGroup>();
+            for (let rawReleaseGroup of data['release-groups']) {
+                collectionResponse.push(ReleaseGroup.parse(rawReleaseGroup));
+            }
+            collectionResponse.pagination = {
+                'count': findCount(data),
+                'offset': findOffset(data)
+            };
 
             return collectionResponse;
         }

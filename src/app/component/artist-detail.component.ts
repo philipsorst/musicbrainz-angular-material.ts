@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Restangular} from "ngx-restangular";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {MdGridList} from "@angular/material";
 import {ObservableMedia} from "@angular/flex-layout";
@@ -37,31 +37,12 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
     @ViewChild(MdGridList)
     private gridList;
 
-    constructor(private restangular: Restangular, private route: ActivatedRoute, private media: ObservableMedia, private userService: UserService, private musicbrainzService: MusicbrainzService) {
-    }
-
-    public numCols() {
-        if (this.media.isActive('xl')) {
-            return 6;
-        }
-        else if (this.media.isActive('lg')) {
-            return 5;
-        }
-        else if (this.media.isActive('md')) {
-            return 4;
-        }
-        else if (this.media.isActive('sm')) {
-            return 3;
-        }
-        else if (this.media.isActive('xs')) {
-            return 2;
-        }
-
-        return 1;
-    }
-
-    public trackById(index: number, musicbrainzEntity: MusicbrainzEntity): string {
-        return musicbrainzEntity.id;
+    constructor(private restangular: Restangular,
+                private route: ActivatedRoute,
+                private router: Router,
+                private media: ObservableMedia,
+                private userService: UserService,
+                private musicbrainzService: MusicbrainzService) {
     }
 
     ngOnInit(): void {
@@ -71,7 +52,6 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
             this.restangular.one('artist', id).get().subscribe(
                 (response) => {
                     this.artist = response;
-                    console.log(this.artist);
                     this.userService.addRecentArtist(this.artist);
                     this.musicbrainzService.listAllReleaseGroups(id)
                         .then(
@@ -126,5 +106,33 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.routeSubscription.unsubscribe();
+    }
+
+    public numCols() {
+        if (this.media.isActive('xl')) {
+            return 6;
+        }
+        else if (this.media.isActive('lg')) {
+            return 5;
+        }
+        else if (this.media.isActive('md')) {
+            return 4;
+        }
+        else if (this.media.isActive('sm')) {
+            return 3;
+        }
+        else if (this.media.isActive('xs')) {
+            return 2;
+        }
+
+        return 1;
+    }
+
+    public trackById(index: number, musicbrainzEntity: MusicbrainzEntity): string {
+        return musicbrainzEntity.id;
+    }
+
+    public showReleaseGroup(releaseGroup: ReleaseGroup) {
+        this.router.navigate(['/release-group', releaseGroup.id]);
     }
 }

@@ -1,5 +1,6 @@
 import {FlexDate} from "./flex-date";
 import {MusicbrainzEntity} from "./musicbrainz-entity";
+import {ArtistCredit} from "./artist-credit";
 
 export class ReleaseGroup extends MusicbrainzEntity {
 
@@ -7,6 +8,7 @@ export class ReleaseGroup extends MusicbrainzEntity {
     firstReleaseDate: FlexDate;
     primaryType: string;
     secondaryTypes: string[];
+    artistCredits: Array<ArtistCredit>;
 
     public static parse(data: any): ReleaseGroup {
         let releaseGroup = new ReleaseGroup();
@@ -15,6 +17,13 @@ export class ReleaseGroup extends MusicbrainzEntity {
         releaseGroup.firstReleaseDate = FlexDate.parse(data['first-release-date']);
         releaseGroup.primaryType = data['primary-type'];
         releaseGroup.secondaryTypes = data['secondary-types'];
+
+        if (data.hasOwnProperty('artist-credit')) {
+            releaseGroup.artistCredits = [];
+            for (let rawArtistCredit of data['artist-credit']) {
+                releaseGroup.artistCredits.push(ArtistCredit.parse(rawArtistCredit))
+            }
+        }
 
         return releaseGroup;
     }

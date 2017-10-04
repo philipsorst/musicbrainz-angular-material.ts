@@ -30,13 +30,17 @@ import {HomeComponent} from "../component/home.component";
 import {UserService} from "../service/user.service";
 import {SecondaryTypePipe} from "../pipe/secondary-type.pipe";
 import {MusicbrainzService} from "../service/musicbrainz.service";
+import {ReleaseGroupDetailComponent} from "../component/release-group-detail.component";
+import {ArtistCreditsComponent} from "../component/artist-credits.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
+        ArtistCreditsComponent,
         SearchComponent,
         ArtistDetailComponent,
+        ReleaseGroupDetailComponent,
         ReleaseGroupCoverDirective,
         FlexDatePipe,
         SecondaryTypePipe

@@ -14,7 +14,8 @@
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
                 <md-grid-tile
                         *ngFor="let releaseGroup of releaseGroups.album | secondaryType:secondaryTypes; trackBy: trackById"
-                        [releaseGroupCover]="releaseGroup" class="release-group">
+                        [releaseGroupCover]="releaseGroup" class="release-group"
+                        (click)="showReleaseGroup(releaseGroup)">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
@@ -25,7 +26,7 @@
         <md-tab label="Single" *ngIf="releaseGroups.single.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
                 <md-grid-tile *ngFor="let releaseGroup of releaseGroups.single" [releaseGroupCover]="releaseGroup"
-                              class="release-group">
+                              class="release-group" (click)="showReleaseGroup(releaseGroup)">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
@@ -36,7 +37,7 @@
         <md-tab label="EP" *ngIf="releaseGroups.ep.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
                 <md-grid-tile *ngFor="let releaseGroup of releaseGroups.ep" [releaseGroupCover]="releaseGroup"
-                              class="release-group">
+                              class="release-group" (click)="showReleaseGroup(releaseGroup)">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
@@ -47,7 +48,7 @@
         <md-tab label="Broadcast" *ngIf="releaseGroups.broadcast.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
                 <md-grid-tile *ngFor="let releaseGroup of releaseGroups.broadcast" [releaseGroupCover]="releaseGroup"
-                              class="release-group">
+                              class="release-group" (click)="showReleaseGroup(releaseGroup)">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
@@ -58,7 +59,7 @@
         <md-tab label="Other" *ngIf="releaseGroups.other.length > 0">
             <md-grid-list [cols]="numCols()" rowHeight="1:1">
                 <md-grid-tile *ngFor="let releaseGroup of releaseGroups.other" [releaseGroupCover]="releaseGroup"
-                              class="release-group">
+                              class="release-group" (click)="showReleaseGroup(releaseGroup)">
                     <md-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
