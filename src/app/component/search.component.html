@@ -1,14 +1,16 @@
 <md-tab-group backgroundColor="primary" color="accent">
     <md-tab label="Artist">
+
         <md-card class="card-standalone">
             <md-card-content>
-                <form (ngSubmit)="searchArtist()" #artistSearchForm="ngForm">
+                <form (ngSubmit)="searchArtists()" #artistSearchForm="ngForm">
                     <div>
                         <md-form-field>
-                            <input mdInput type="text" placeholder="Search" [(ngModel)]="query.artists" name="artist" />
+                            <input mdInput type="text" placeholder="Search" [(ngModel)]="searchString.artists"
+                                   name="artist" />
                         </md-form-field>
                     </div>
-                    <button type="submit" md-raised-button md-block color="primary">Search</button>
+                    <button type="submit" md-raised-button color="primary">Search</button>
                 </form>
             </md-card-content>
         </md-card>
@@ -26,14 +28,99 @@
                 </a>
             </md-nav-list>
         </md-card>
+
     </md-tab>
     <md-tab label="Release Group">
-        <md-card>Release Group</md-card>
+
+        <md-card class="card-standalone">
+            <md-card-content>
+                <form (ngSubmit)="searchReleaseGroups()" #releaseGroupSearchForm="ngForm">
+                    <div>
+                        <md-form-field>
+                            <input mdInput type="text" placeholder="Search" [(ngModel)]="searchString.releaseGroups"
+                                   name="releaseGroup" />
+                        </md-form-field>
+                    </div>
+                    <button type="submit" md-raised-button color="primary">Search</button>
+                </form>
+            </md-card-content>
+        </md-card>
+
+        <div *ngIf="loading.releaseGroups" class="loader">
+            <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+        </div>
+
+        <md-card class="card-standalone" *ngIf="result.releaseGroups">
+            <md-nav-list>
+                <a md-list-item *ngFor="let releaseGroup of result.releaseGroups; trackBy: trackById"
+                   [routerLink]="['/release-group', releaseGroup.id]">
+                    <h3 mat-line>{{releaseGroup.title}}</h3>
+                    <p mat-line [artist-credits]="releaseGroup.artistCredits"></p>
+                </a>
+            </md-nav-list>
+        </md-card>
+
     </md-tab>
     <md-tab label="Release">
-        <md-card>Release</md-card>
+
+        <md-card class="card-standalone">
+            <md-card-content>
+                <form (ngSubmit)="searchReleases()" #releaseSearchForm="ngForm">
+                    <div>
+                        <md-form-field>
+                            <input mdInput type="text" placeholder="Search" [(ngModel)]="searchString.releases"
+                                   name="release" />
+                        </md-form-field>
+                    </div>
+                    <button type="submit" md-raised-button color="primary">Search</button>
+                </form>
+            </md-card-content>
+        </md-card>
+
+        <div *ngIf="loading.releases" class="loader">
+            <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+        </div>
+
+        <md-card class="card-standalone" *ngIf="result.releases">
+            <md-nav-list>
+                <a md-list-item *ngFor="let release of result.releases; trackBy: trackById"
+                   [routerLink]="['/release', release.id]">
+                    <h3 mat-line>{{release.title}}</h3>
+                    <p mat-line [artist-credits]="release.artistCredits"></p>
+                </a>
+            </md-nav-list>
+        </md-card>
+
     </md-tab>
     <md-tab label="Recording">
-        <md-card>Recording</md-card>
+
+        <md-card class="card-standalone">
+            <md-card-content>
+                <form (ngSubmit)="searchRecordings()" #recordingSearchForm="ngForm">
+                    <div>
+                        <md-form-field>
+                            <input mdInput type="text" placeholder="Search" [(ngModel)]="searchString.recordings"
+                                   name="recording" />
+                        </md-form-field>
+                    </div>
+                    <button type="submit" md-raised-button color="primary">Search</button>
+                </form>
+            </md-card-content>
+        </md-card>
+
+        <div *ngIf="loading.recordings" class="loader">
+            <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+        </div>
+
+        <md-card class="card-standalone" *ngIf="result.recordings">
+            <md-nav-list>
+                <a md-list-item *ngFor="let recording of result.recordings; trackBy: trackById"
+                   [routerLink]="['/recording', recording.id]">
+                    <h3 mat-line>{{recording.title}}</h3>
+                    <p mat-line [artist-credits]="recording.artistCredits"></p>
+                </a>
+            </md-nav-list>
+        </md-card>
+
     </md-tab>
 </md-tab-group>

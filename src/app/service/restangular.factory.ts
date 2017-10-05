@@ -2,6 +2,7 @@ import {ReleaseGroup} from "../model/release-group";
 import {PaginatedArray} from "../module/paginated-array";
 import {Artist} from "../model/artist";
 import {Release} from "../model/release";
+import {Recording} from "../model/recording";
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('https://musicbrainz.org/ws/2/');
@@ -66,6 +67,24 @@ export function RestangularConfigFactory(RestangularProvider) {
             return collectionResponse;
         }
 
+        if ('release-group' === what) {
+
+            if (!data.hasOwnProperty('release-groups')) {
+                return ReleaseGroup.parse(data);
+            }
+
+            let collectionResponse: PaginatedArray<ReleaseGroup> = new PaginatedArray<ReleaseGroup>();
+            for (let rawReleaseGroup of data['release-groups']) {
+                collectionResponse.push(ReleaseGroup.parse(rawReleaseGroup));
+            }
+            collectionResponse.pagination = {
+                'count': findCount(data),
+                'offset': findOffset(data)
+            };
+
+            return collectionResponse;
+        }
+
         if ('release' === what) {
 
             if (!data.hasOwnProperty('releases')) {
@@ -84,15 +103,15 @@ export function RestangularConfigFactory(RestangularProvider) {
             return collectionResponse;
         }
 
-        if ('release-group' === what) {
+        if ('recording' === what) {
 
-            if (!data.hasOwnProperty('release-groups')) {
-                return ReleaseGroup.parse(data);
+            if (!data.hasOwnProperty('recordings')) {
+                return Release.parse(data);
             }
 
-            let collectionResponse: PaginatedArray<ReleaseGroup> = new PaginatedArray<ReleaseGroup>();
-            for (let rawReleaseGroup of data['release-groups']) {
-                collectionResponse.push(ReleaseGroup.parse(rawReleaseGroup));
+            let collectionResponse: PaginatedArray<Recording> = new PaginatedArray<Recording>();
+            for (let rawRelease of data['recordings']) {
+                collectionResponse.push(Recording.parse(rawRelease));
             }
             collectionResponse.pagination = {
                 'count': findCount(data),

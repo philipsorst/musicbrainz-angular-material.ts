@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {PaginatedArray} from "../module/paginated-array";
 import {Release} from "../model/release";
 import {Artist} from "../model/artist";
+import {Recording} from "../model/recording";
 
 @Injectable()
 export class MusicbrainzService {
@@ -75,5 +76,21 @@ export class MusicbrainzService {
         }
 
         return fetchReleaseGroups(releaseGroupId, 0, limit).toPromise().then(fetchmorepages)
+    }
+
+    public searchArtists(searchString: string): Promise<PaginatedArray<Artist>> {
+        return this.restangular.all('artist').getList({'query': 'artist:(' + searchString + ')'}).toPromise();
+    }
+
+    public searchReleaseGroups(searchString: string): Promise<PaginatedArray<ReleaseGroup>> {
+        return this.restangular.all('release-group').getList({'query': 'releasegroup:(' + searchString + ')'}).toPromise();
+    }
+
+    public searchReleases(searchString: string): Promise<PaginatedArray<Release>> {
+        return this.restangular.all('release').getList({'query': 'release:(' + searchString + ')'}).toPromise();
+    }
+
+    public searchRecordings(searchString: string): Promise<PaginatedArray<Recording>> {
+        return this.restangular.all('recording').getList({'query': 'recording:(' + searchString + ')'}).toPromise();
     }
 }

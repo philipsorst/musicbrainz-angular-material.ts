@@ -4,9 +4,14 @@ export class FlexDate {
     year: number | null;
     month: number | null;
     day: number | null;
-    precision: FlexDatePrecision = FlexDatePrecision.None
+    precision: FlexDatePrecision = FlexDatePrecision.None;
 
     public static parse(dateString: string): FlexDate {
+
+        if (dateString == null) {
+            return undefined;
+        }
+
         let parts = dateString.split("-");
         if (parts.length === 1 && parts[0] === '') {
             return null;
