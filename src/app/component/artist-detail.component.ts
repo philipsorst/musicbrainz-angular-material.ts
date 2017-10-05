@@ -10,6 +10,7 @@ import {FlexDate} from "../model/flex-date";
 import {UserService} from "../service/user.service";
 import {MusicbrainzEntity} from "../model/musicbrainz-entity";
 import {MusicbrainzService} from "../service/musicbrainz.service";
+import {CacheService} from "../service/cache.service";
 
 @Component({
     templateUrl: './artist-detail.component.html',
@@ -42,65 +43,38 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private media: ObservableMedia,
                 private userService: UserService,
-                private musicbrainzService: MusicbrainzService) {
+                private musicbrainzService: MusicbrainzService,
+                private cacheService: CacheService) {
     }
 
     ngOnInit(): void {
         this.routeSubscription = this.route.params.subscribe((parameters) => {
-            this.loading = true;
             let id = parameters['id'];
-            this.restangular.one('artist', id).get().subscribe(
-                (response) => {
-                    this.artist = response;
-                    this.userService.addRecentArtist(this.artist);
-                    this.musicbrainzService.listAllReleaseGroups(id)
-                        .then(
-                            (releaseGroups: Array<ReleaseGroup>) => {
-                                console.log('releaseGroups', releaseGroups);
-                                this.loading = false;
-                                let sortedReleaseGroups = releaseGroups.sort((left: ReleaseGroup, right: ReleaseGroup) => {
-                                    return FlexDate.compare(right.firstReleaseDate, left.firstReleaseDate);
-                                });
 
-                                for (let releaseGroup of sortedReleaseGroups) {
-                                    switch (releaseGroup.primaryType) {
-                                        case 'Album': {
-                                            this.releaseGroups.album.push(releaseGroup);
-                                            break;
-                                        }
-                                        case 'EP': {
-                                            this.releaseGroups.ep.push(releaseGroup);
-                                            break;
-                                        }
-                                        case 'Single': {
-                                            this.releaseGroups.single.push(releaseGroup);
-                                            break;
-                                        }
-                                        case 'Broadcast': {
-                                            this.releaseGroups.broadcast.push(releaseGroup);
-                                            break;
-                                        }
-                                        case 'Other': {
-                                            this.releaseGroups.other.push(releaseGroup);
-                                            break;
-                                        }
-                                        default: {
-                                            console.warn('Unknown release group type', releaseGroup.primaryType)
-                                        }
-                                    }
-                                }
-                            }
-                        ).catch((response) => {
-                        console.error(response);
+            let result = this.cacheService.getEntry(this.getCacheKey(id));
+            if (null !== result) {
+                this.artist = result.artist;
+                this.sortReleaseGroups(result.releaseGroups);
+            } else {
+                this.loading = true;
+                Promise.all([
+                    this.musicbrainzService.findArtist(id),
+                    this.musicbrainzService.listAllReleaseGroups(id)
+                ])
+                    .then(([artist, releaseGroups]) => {
+                        this.artist = artist;
+                        this.sortReleaseGroups(releaseGroups);
+                        this.cacheService.setEntry(this.getCacheKey(id), {
+                            'artist': artist,
+                            'releaseGroups': releaseGroups
+                        });
+                        this.loading = false;
+                    })
+                    .catch(reason => {
+                        console.error(reason);
                         this.loading = false;
                     });
-                },
-                (response) => {
-                    console.error(response);
-                    this.loading = false;
-                }
-            );
-
+            }
         });
     }
 
@@ -134,5 +108,43 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
 
     public showReleaseGroup(releaseGroup: ReleaseGroup) {
         this.router.navigate(['/release-group', releaseGroup.id]);
+    }
+
+    private sortReleaseGroups(releaseGroups: Array<ReleaseGroup>) {
+        let sortedReleaseGroups = releaseGroups.sort((left: ReleaseGroup, right: ReleaseGroup) => {
+            return FlexDate.compare(right.firstReleaseDate, left.firstReleaseDate);
+        });
+
+        for (let releaseGroup of sortedReleaseGroups) {
+            switch (releaseGroup.primaryType) {
+                case 'Album': {
+                    this.releaseGroups.album.push(releaseGroup);
+                    break;
+                }
+                case 'EP': {
+                    this.releaseGroups.ep.push(releaseGroup);
+                    break;
+                }
+                case 'Single': {
+                    this.releaseGroups.single.push(releaseGroup);
+                    break;
+                }
+                case 'Broadcast': {
+                    this.releaseGroups.broadcast.push(releaseGroup);
+                    break;
+                }
+                case 'Other': {
+                    this.releaseGroups.other.push(releaseGroup);
+                    break;
+                }
+                default: {
+                    console.warn('Unknown release group type', releaseGroup.primaryType)
+                }
+            }
+        }
+    }
+
+    private getCacheKey(artistId: string) {
+        return 'artist-detail:' + artistId;
     }
 }

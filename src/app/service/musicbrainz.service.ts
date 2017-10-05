@@ -4,11 +4,24 @@ import {ReleaseGroup} from "../model/release-group";
 import {Observable} from "rxjs/Observable";
 import {PaginatedArray} from "../module/paginated-array";
 import {Release} from "../model/release";
+import {Artist} from "../model/artist";
 
 @Injectable()
 export class MusicbrainzService {
 
     constructor(private restangular: Restangular) {
+    }
+
+    public findArtist(id: string): Promise<Artist> {
+        return this.restangular.one('artist', id).get().toPromise();
+    }
+
+    public findReleaseGroup(id: string): Promise<ReleaseGroup> {
+        return this.restangular.one('release-group', id).get({'inc': 'artists'}).toPromise();
+    }
+
+    public findRelease(id: string): Promise<Release> {
+        return this.restangular.one('release', id).get({'inc': 'artists+recordings+artist-credits'}).toPromise();
     }
 
     public listAllReleaseGroups(artistId: string): Promise<Array<ReleaseGroup>> {
@@ -62,13 +75,5 @@ export class MusicbrainzService {
         }
 
         return fetchReleaseGroups(releaseGroupId, 0, limit).toPromise().then(fetchmorepages)
-    }
-
-    public findReleaseGroup(id: string): Promise<ReleaseGroup> {
-        return this.restangular.one('release-group', id).get({'inc': 'artists'}).toPromise();
-    }
-
-    public findRelease(id: string): Promise<Release> {
-        return this.restangular.one('release', id).get({'inc': 'artists+recordings+artist-credits'}).toPromise();
     }
 }

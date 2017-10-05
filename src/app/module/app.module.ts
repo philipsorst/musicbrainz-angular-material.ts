@@ -33,6 +33,7 @@ import {MusicbrainzService} from "../service/musicbrainz.service";
 import {ReleaseGroupDetailComponent} from "../component/release-group-detail.component";
 import {ArtistCreditsComponent} from "../component/artist-credits.component";
 import {ReleaseDetailComponent} from "../component/release-detail.component";
+import {CacheService} from "../service/cache.service";
 
 @NgModule({
     declarations: [
@@ -69,7 +70,8 @@ import {ReleaseDetailComponent} from "../component/release-detail.component";
     ],
     providers: [
         UserService,
-        MusicbrainzService
+        MusicbrainzService,
+        CacheService
     ],
     bootstrap: [AppComponent]
 })
