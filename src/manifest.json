@@ -1,7 +1,10 @@
 {
     "name": "Musicbrainz Browser",
     "short_name": "Musicbrainz Browser",
-    "start_url": "index.html",
+    "start_url": "./",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
     "icons": [
         {
             "src": "assets/android-chrome-192x192.png",
@@ -13,8 +16,5 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone"
+    ]
 }
