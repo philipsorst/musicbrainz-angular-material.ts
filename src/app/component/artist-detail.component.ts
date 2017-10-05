@@ -50,7 +50,6 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.routeSubscription = this.route.params.subscribe((parameters) => {
             let id = parameters['id'];
-
             let result = this.cacheService.getEntry(this.getCacheKey(id));
             if (null !== result) {
                 this.artist = result.artist;
