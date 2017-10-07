@@ -34,6 +34,7 @@ import {ReleaseGroupDetailComponent} from "../component/release-group-detail.com
 import {ArtistCreditsComponent} from "../component/artist-credits.component";
 import {ReleaseDetailComponent} from "../component/release-detail.component";
 import {CacheService} from "../service/cache.service";
+import {ReleaseCoverDirective} from "../directive/release-cover.directive";
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import {CacheService} from "../service/cache.service";
         ReleaseGroupDetailComponent,
         ReleaseDetailComponent,
         ReleaseGroupCoverDirective,
+        ReleaseCoverDirective,
         FlexDatePipe,
         SecondaryTypePipe
     ],

@@ -24,6 +24,7 @@ export class ReleaseGroupDetailComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.routeSubscription = this.route.params.subscribe((parameters) => {
             let id = parameters.id;
+            this.loading = true;
             Promise.all([
                 this.musicbrainzService.findReleaseGroup(id),
                 this.musicbrainzService.listAllReleases(id)

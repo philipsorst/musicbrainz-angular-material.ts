@@ -2,7 +2,7 @@
     <md-progress-spinner mode="indeterminate"></md-progress-spinner>
 </div>
 
-<md-card *ngIf="!loading && release != null">
+<md-card *ngIf="!loading && release != null" [releaseCover]="release">
     <h2 class="mat-title" [artist-credits]="release.artistCredits"></h2>
     <h1 class="mat-headline">{{release.title}}</h1>
 </md-card>

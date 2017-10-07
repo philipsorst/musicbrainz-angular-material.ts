@@ -15,12 +15,20 @@ export function RestangularConfigFactory(RestangularProvider) {
             return data['count'];
         }
 
+        if (data.hasOwnProperty('artist-count')) {
+            return data['artist-count'];
+        }
+
         if (data.hasOwnProperty('release-group-count')) {
             return data['release-group-count'];
         }
 
         if (data.hasOwnProperty('release-count')) {
             return data['release-count'];
+        }
+
+        if (data.hasOwnProperty('recording-count')) {
+            return data['recording-count'];
         }
 
         console.error('No count found', data);
