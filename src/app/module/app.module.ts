@@ -8,17 +8,17 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RestangularConfigFactory} from "../service/restangular.factory";
 import {RestangularModule} from "ngx-restangular";
 import {
-    MdButtonModule,
-    MdCardModule,
-    MdFormFieldModule,
-    MdGridListModule,
-    MdIconModule,
-    MdInputModule,
-    MdListModule,
-    MdProgressSpinnerModule,
-    MdSidenavModule,
-    MdTabsModule,
-    MdToolbarModule
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatTabsModule,
+    MatToolbarModule
 } from "@angular/material";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {SearchComponent} from "../component/search.component";
@@ -57,17 +57,17 @@ import {ReleaseCoverDirective} from "../directive/release-cover.directive";
         FormsModule,
         RestangularModule.forRoot(RestangularConfigFactory),
         AppRoutingModule,
-        MdToolbarModule,
-        MdSidenavModule,
-        MdListModule,
-        MdButtonModule,
-        MdIconModule,
-        MdTabsModule,
-        MdCardModule,
-        MdFormFieldModule,
-        MdInputModule,
-        MdProgressSpinnerModule,
-        MdGridListModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTabsModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        MatGridListModule,
         OverlayModule
     ],
     providers: [

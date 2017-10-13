@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Restangular} from "ngx-restangular";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
-import {MdGridList} from "@angular/material";
+import {MatGridList} from "@angular/material";
 import {ObservableMedia} from "@angular/flex-layout";
 import {Artist} from "../model/artist";
 import {ReleaseGroup} from "../model/release-group";
@@ -35,7 +35,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
 
     private mediaSubscription: Subscription;
 
-    @ViewChild(MdGridList)
+    @ViewChild(MatGridList)
     private gridList;
 
     constructor(private restangular: Restangular,
