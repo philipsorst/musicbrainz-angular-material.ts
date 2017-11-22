@@ -28,8 +28,8 @@
                 </a>
             </mat-nav-list>
         </mat-sidenav>
-        <div>
-            <router-outlet></router-outlet>
+        <div [@routerAnimation]="getState(route)">
+            <router-outlet #route="outlet"></router-outlet>
         </div>
     </mat-sidenav-container>
 </div>

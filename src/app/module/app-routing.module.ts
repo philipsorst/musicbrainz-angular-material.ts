@@ -7,11 +7,11 @@ import {ReleaseGroupDetailComponent} from "../component/release-group-detail.com
 import {ReleaseDetailComponent} from "../component/release-detail.component";
 
 const routes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'search', component: SearchComponent},
-    {path: 'artists/:id', component: ArtistDetailComponent},
-    {path: 'release-group/:id', component: ReleaseGroupDetailComponent},
-    {path: 'release/:id', component: ReleaseDetailComponent}
+    {path: '', component: HomeComponent, data: {state: 'home'}},
+    {path: 'search', component: SearchComponent, data: {state: 'search'}},
+    {path: 'artists/:id', component: ArtistDetailComponent, data: {state: 'artistDetail'}},
+    {path: 'release-group/:id', component: ReleaseGroupDetailComponent, data: {state: 'releaseGroupDetail'}},
+    {path: 'release/:id', component: ReleaseDetailComponent, data: {state: 'releaseDetail'}}
 ];
 
 @NgModule({

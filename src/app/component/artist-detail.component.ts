@@ -53,6 +53,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
             let result = this.cacheService.getEntry(this.getCacheKey(id));
             if (null !== result) {
                 this.artist = result.artist;
+                this.userService.addRecentArtist(this.artist);
                 this.sortReleaseGroups(result.releaseGroups);
             } else {
                 this.loading = true;
@@ -62,6 +63,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
                 ])
                     .then(([artist, releaseGroups]) => {
                         this.artist = artist;
+                        this.userService.addRecentArtist(this.artist);
                         this.sortReleaseGroups(releaseGroups);
                         this.cacheService.setEntry(this.getCacheKey(id), {
                             'artist': artist,
