@@ -3,7 +3,6 @@ import {Restangular} from "ngx-restangular";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {MatGridList} from "@angular/material";
-import {ObservableMedia} from "@angular/flex-layout";
 import {Artist} from "../model/artist";
 import {ReleaseGroup} from "../model/release-group";
 import {FlexDate} from "../model/flex-date";
@@ -41,7 +40,6 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
     constructor(private restangular: Restangular,
                 private route: ActivatedRoute,
                 private router: Router,
-                private media: ObservableMedia,
                 private userService: UserService,
                 private musicbrainzService: MusicbrainzService,
                 private cacheService: CacheService) {
@@ -84,21 +82,21 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
     }
 
     public numCols() {
-        if (this.media.isActive('xl')) {
-            return 6;
-        }
-        else if (this.media.isActive('lg')) {
-            return 5;
-        }
-        else if (this.media.isActive('md')) {
-            return 4;
-        }
-        else if (this.media.isActive('sm')) {
-            return 3;
-        }
-        else if (this.media.isActive('xs')) {
-            return 2;
-        }
+        // if (this.media.isActive('xl')) {
+        //     return 6;
+        // }
+        // else if (this.media.isActive('lg')) {
+        //     return 5;
+        // }
+        // else if (this.media.isActive('md')) {
+        //     return 4;
+        // }
+        // else if (this.media.isActive('sm')) {
+        //     return 3;
+        // }
+        // else if (this.media.isActive('xs')) {
+        //     return 2;
+        // }
 
         return 1;
     }

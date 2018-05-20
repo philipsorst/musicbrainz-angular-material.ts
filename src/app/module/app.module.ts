@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from '../component/app.component';
-import {FlexLayoutModule} from "@angular/flex-layout";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RestangularConfigFactory} from "../service/restangular.factory";
 import {RestangularModule} from "ngx-restangular";
@@ -53,7 +52,6 @@ import {ReleaseCoverDirective} from "../directive/release-cover.directive";
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        FlexLayoutModule,
         FormsModule,
         RestangularModule.forRoot(RestangularConfigFactory),
         AppRoutingModule,
