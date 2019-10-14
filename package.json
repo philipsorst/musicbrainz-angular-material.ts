@@ -8,7 +8,8 @@
         "build": "ng build",
         "test": "echo \"Error: no test... minimal project\" && exit 1",
         "lint": "echo \"Error: no lint... minimal project\" && exit 1",
-        "e2e": "echo \"Error: no e2e... minimal project\" && exit 1"
+        "e2e": "echo \"Error: no e2e... minimal project\" && exit 1",
+        "icons": "icon-gen -i src/assets/icons/icon.svg -o src/assets/icons/ --favicon name=icon- sizes=32,72,96,128,144,152,180,192,384,512"
     },
     "private": true,
     "dependencies": {
@@ -21,7 +22,9 @@
         "@angular/material": "^8.2.3",
         "@angular/platform-browser": "^8.2.10",
         "@angular/platform-browser-dynamic": "^8.2.10",
+        "@angular/pwa": "^0.803.9",
         "@angular/router": "^8.2.10",
+        "@angular/service-worker": "^8.2.10",
         "core-js": "^2.4",
         "ejs": "^2.5.7",
         "hammerjs": "^2.0",
@@ -34,6 +37,7 @@
         "@angular/cli": "^8.3.9",
         "@angular/compiler-cli": "^8.2.10",
         "@angular/language-service": "^8.2.10",
+        "icon-gen": "^2.0.0",
         "typescript": "~3.5.3"
     }
 }

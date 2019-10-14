@@ -33,6 +33,8 @@ import {ReleaseDetailComponent} from "./release/release-detail.component";
 import {CacheService} from "./cache/cache.service";
 import {ReleaseCoverDirective} from "./release/release-cover.directive";
 import {HttpClientModule} from '@angular/common/http';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 @NgModule({
     declarations: [
@@ -66,7 +68,8 @@ import {HttpClientModule} from '@angular/common/http';
         MatInputModule,
         MatProgressSpinnerModule,
         MatGridListModule,
-        OverlayModule
+        OverlayModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
     ],
     providers: [
         UserService,
