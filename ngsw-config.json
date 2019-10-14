@@ -26,5 +26,18 @@
                 ]
             }
         }
+    ],
+    "dataGroups": [
+        {
+            "name": "api-performance",
+            "urls": [
+                "https://musicbrainz.org/ws/2/**"
+            ],
+            "cacheConfig": {
+                "strategy": "performance",
+                "maxSize": 500,
+                "maxAge": "1d"
+            }
+        }
     ]
 }
