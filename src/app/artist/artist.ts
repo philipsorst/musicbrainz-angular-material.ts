@@ -1,4 +1,5 @@
 import {MusicbrainzEntity} from "../api/musicbrainz-entity";
+import {LifeSpan} from '../api/life-span';
 
 export class Artist extends MusicbrainzEntity
 {
@@ -7,6 +8,7 @@ export class Artist extends MusicbrainzEntity
     country: string;
     type: string;
     sortName: string;
+    lifeSpan: LifeSpan;
 
     public static parse(data: any): Artist
     {
@@ -17,6 +19,9 @@ export class Artist extends MusicbrainzEntity
         artist.country = data.country;
         artist.type = data.type;
         artist.sortName = data['sort-name'];
+        if (data['life-span']) {
+            artist.lifeSpan = LifeSpan.parse(data['life-span']);
+        }
 
         return artist;
     }

@@ -55,7 +55,8 @@ export class ArtistDetailComponent implements OnInit
 
         this.artist$ = $id.pipe(
             switchMap(id => this.musicbrainzService.findArtist(id)),
-            tap(artist => this.userService.addRecentArtist(artist))
+            tap(artist => this.userService.addRecentArtist(artist)),
+            tap(artist => console.log(artist))
         );
 
         this.categorizedReleaseGroups$ = $id.pipe(

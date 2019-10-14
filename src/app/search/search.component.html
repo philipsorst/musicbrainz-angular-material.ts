@@ -1,21 +1,31 @@
 <mat-tab-group backgroundColor="primary" color="accent">
     <mat-tab label="Artist">
 
-        <mat-card class="card-standalone">
-            <mat-card-content>
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Search" [formControl]="artistSearchControl"
-                           name="artist" />
+        <mat-card class="mb-3">
+            <mat-card-content class="d-flex flex-column">
+                <mat-form-field appearance="outline" class="mb-form-field-no-hint">
+                    <mat-label>Search Artist</mat-label>
+                    <input
+                            matInput
+                            type="text"
+                            [formControl]="artistSearchControl"
+                            name="artist"
+                    />
                 </mat-form-field>
 
             </mat-card-content>
         </mat-card>
 
-        <mat-card class="card-standalone" *ngIf="(artists$ | async) as artists">
+        <mat-card *ngIf="(artists$ | async) as artists">
             <mat-nav-list>
                 <a mat-list-item *ngFor="let artist of artists; trackBy: trackById"
                    [routerLink]="['/artists', artist.id]">
                     <h3 mat-line>{{artist.name}}</h3>
+                    <ul mat-line class="mb-list-inline">
+                        <li *ngIf="artist.type">{{artist.type}}</li>
+                        <li *ngIf="artist.country">{{artist.country}}</li>
+                        <li *ngIf="artist.lifeSpan">{{artist.lifeSpan|mbLifeSpan}}</li>
+                    </ul>
                     <p mat-line>{{artist.disambiguation}}</p>
                 </a>
             </mat-nav-list>
@@ -24,16 +34,17 @@
     </mat-tab>
     <mat-tab label="Release Group">
 
-        <mat-card class="card-standalone">
-            <mat-card-content>
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Search" [formControl]="releaseGroupSearchControl"
+        <mat-card class="mb-3">
+            <mat-card-content class="d-flex flex-column">
+                <mat-form-field appearance="outline" class="mb-form-field-no-hint">
+                    <mat-label>Search Release Group</mat-label>
+                    <input matInput type="text" [formControl]="releaseGroupSearchControl"
                            name="releaseGroup" />
                 </mat-form-field>
             </mat-card-content>
         </mat-card>
 
-        <mat-card class="card-standalone" *ngIf="(releaseGroups$ | async) as releaseGroups">
+        <mat-card *ngIf="(releaseGroups$ | async) as releaseGroups">
             <mat-nav-list>
                 <a mat-list-item *ngFor="let releaseGroup of releaseGroups; trackBy: trackById"
                    [routerLink]="['/release-group', releaseGroup.id]">
@@ -46,16 +57,17 @@
     </mat-tab>
     <mat-tab label="Release">
 
-        <mat-card class="card-standalone">
-            <mat-card-content>
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Search" [formControl]="releaseSearchControl"
+        <mat-card class="mb-3">
+            <mat-card-content class="d-flex flex-column">
+                <mat-form-field appearance="outline" class="mb-form-field-no-hint">
+                    <mat-label>Search Release</mat-label>
+                    <input matInput type="text" [formControl]="releaseSearchControl"
                            name="release" />
                 </mat-form-field>
             </mat-card-content>
         </mat-card>
 
-        <mat-card class="card-standalone" *ngIf="(releases$ | async) as releases">
+        <mat-card *ngIf="(releases$ | async) as releases">
             <mat-nav-list>
                 <a mat-list-item *ngFor="let release of releases; trackBy: trackById"
                    [routerLink]="['/release', release.id]">
@@ -68,16 +80,17 @@
     </mat-tab>
     <mat-tab label="Recording">
 
-        <mat-card class="card-standalone">
-            <mat-card-content>
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Search" [formControl]="recordingSearchControl"
+        <mat-card class="mb-3">
+            <mat-card-content class="d-flex flex-column">
+                <mat-form-field appearance="outline" class="mb-form-field-no-hint">
+                    <mat-label>Search Recording</mat-label>
+                    <input matInput type="text" [formControl]="recordingSearchControl"
                            name="recording" />
                 </mat-form-field>
             </mat-card-content>
         </mat-card>
 
-        <mat-card class="card-standalone" *ngIf="(recordings$ | async) as recordings">
+        <mat-card *ngIf="(recordings$ | async) as recordings">
             <mat-nav-list>
                 <a mat-list-item *ngFor="let recording of recordings; trackBy: trackById"
                    [routerLink]="['/recording', recording.id]">

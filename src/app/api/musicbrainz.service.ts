@@ -19,17 +19,23 @@ export class MusicbrainzService
 
     public findArtist(id: string): Observable<Artist>
     {
-        return this.httpClient.get<Artist>('https://musicbrainz.org/ws/2/artist/' + id);
+        return this.httpClient.get('https://musicbrainz.org/ws/2/artist/' + id).pipe(
+            map(data => Artist.parse(data))
+        );
     }
 
     public findReleaseGroup(id: string): Observable<ReleaseGroup>
     {
-        return this.httpClient.get<ReleaseGroup>('https://musicbrainz.org/ws/2/release-group/' + id, {params: {'inc': 'artists'}});
+        return this.httpClient.get('https://musicbrainz.org/ws/2/release-group/' + id, {params: {'inc': 'artists'}}).pipe(
+            map(data => ReleaseGroup.parse(data))
+        );
     }
 
     public findRelease(id: string): Observable<Release>
     {
-        return this.httpClient.get<Release>('https://musicbrainz.org/ws/2/release/' + id, {params: {'inc': 'artists+recordings+artist-credits'}});
+        return this.httpClient.get('https://musicbrainz.org/ws/2/release/' + id, {params: {'inc': 'artists+recordings+artist-credits'}}).pipe(
+            map(data => Release.parse(data))
+        );
     }
 
     public listAllReleaseGroupsByArtist(artistId: string): Observable<ReleaseGroup[]>

@@ -1,12 +1,14 @@
 import {FlexDatePrecision} from "./flex-date-precision";
 
-export class FlexDate {
+export class FlexDate
+{
     year: number | null;
     month: number | null;
     day: number | null;
     precision: FlexDatePrecision = FlexDatePrecision.None;
 
-    public static parse(dateString: string): FlexDate {
+    public static parse(dateString: string): FlexDate
+    {
 
         if (dateString == null) {
             return undefined;
@@ -34,7 +36,8 @@ export class FlexDate {
         return flexDate;
     }
 
-    public static compare(left: FlexDate, right: FlexDate): number {
+    public static compare(left: FlexDate, right: FlexDate): number
+    {
         if (!left && !right) {
             return 0;
         }
@@ -50,7 +53,8 @@ export class FlexDate {
         return left.compareTo(right);
     }
 
-    public compareTo(other: FlexDate): number {
+    public compareTo(other: FlexDate): number
+    {
 
         if (this.year < other.year) {
             return -1;
@@ -78,5 +82,27 @@ export class FlexDate {
 
 
         return 0;
+    }
+
+    static stringify(value: FlexDate): string
+    {
+        if (!value) {
+            return '';
+        }
+
+        switch (value.precision) {
+            case FlexDatePrecision.Day: {
+                return value.year + '-' + value.month + '-' + value.day;
+            }
+            case FlexDatePrecision.Month: {
+                return value.year + '-' + value.month;
+            }
+            case FlexDatePrecision.Year: {
+                return String(value.year);
+            }
+            default: {
+                return '';
+            }
+        }
     }
 }

@@ -3,18 +3,25 @@
 </div>
 
 <div *ngIf="(artist$ | async) as artist">
-    <mat-card>
-        <h1 class="mat-headline">{{artist.name}}</h1>
+    <mat-card class="mb-3">
+        <mat-card-content>
+            <h1 class="mat-headline mb-1">{{artist.name}}</h1>
+            <h2 class="mat-subheading-2 mb-2 text-muted">{{artist.type}}</h2>
+            <ul class="mb-list-inline">
+                <li *ngIf="artist.country">{{artist.country}}</li>
+                <li *ngIf="artist.lifeSpan">{{artist.lifeSpan|mbLifeSpan}}</li>
+            </ul>
+            <p *ngIf="artist.disambiguation">{{artist.disambiguation}}</p>
+        </mat-card-content>
     </mat-card>
 </div>
 
-<mat-card class="card-standalone card-nopadding"
-          *ngIf="(categorizedReleaseGroups$ | async) as categorizedReleaseGroups">
+<mat-card class="" *ngIf="(categorizedReleaseGroups$ | async) as categorizedReleaseGroups">
     <mat-tab-group>
         <mat-tab label="Album" *ngIf="categorizedReleaseGroups.albums.length > 0">
             <mat-grid-list [cols]="(gridColumns$ | async)" rowHeight="1:1">
                 <mat-grid-tile
-                        *ngFor="let releaseGroup of categorizedReleaseGroups.albums | mbReleaseroupSecondaryType:secondaryTypes; trackBy: trackById"
+                        *ngFor="let releaseGroup of categorizedReleaseGroups.albums; trackBy: trackById"
                         [releaseGroupCover]="releaseGroup" class="release-group"
                         (click)="showReleaseGroup(releaseGroup)">
                     <mat-grid-tile-footer>

@@ -1,8 +1,8 @@
 import {Pipe, PipeTransform} from "@angular/core";
 import {ReleaseGroup} from "./release-group";
 
-@Pipe({name: 'mbReleaseroupSecondaryType'})
-export class MbReleaseroupSecondaryTypePipe implements PipeTransform
+@Pipe({name: 'mbReleaseGroupSecondaryType'})
+export class ReleaseGroupSecondaryTypePipe implements PipeTransform
 {
     /**
      * @override

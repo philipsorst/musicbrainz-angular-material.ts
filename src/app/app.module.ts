@@ -25,7 +25,7 @@ import {ReleaseGroupCoverDirective} from "./release-group/release-group-cover.di
 import {FlexDatePipe} from "./flex-date/flex-date.pipe";
 import {HomeComponent} from "./home/home.component";
 import {UserService} from "./user/user.service";
-import {MbReleaseroupSecondaryTypePipe} from "./release-group/release-group-secondary-type.pipe";
+import {ReleaseGroupSecondaryTypePipe} from "./release-group/release-group-secondary-type.pipe";
 import {MusicbrainzService} from "./api/musicbrainz.service";
 import {ReleaseGroupDetailComponent} from "./release-group/release-group-detail.component";
 import {ArtistCreditsComponent} from "./artist/artist-credits.component";
@@ -35,6 +35,7 @@ import {ReleaseCoverDirective} from "./release/release-cover.directive";
 import {HttpClientModule} from '@angular/common/http';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
+import {MbLifeSpanPipe} from './api/life-span.pipe';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import {environment} from '../environments/environment';
         ReleaseGroupCoverDirective,
         ReleaseCoverDirective,
         FlexDatePipe,
-        MbReleaseroupSecondaryTypePipe
+        ReleaseGroupSecondaryTypePipe,
+        MbLifeSpanPipe
     ],
     imports: [
         BrowserModule,

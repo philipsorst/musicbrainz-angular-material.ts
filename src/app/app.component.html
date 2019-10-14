@@ -1,11 +1,4 @@
 <div id=wrapper>
-    <mat-toolbar color="primary" id="main-toolbar">
-        <button mat-icon-button (click)="sidenav.toggle()">
-            <mat-icon class="mat-24">menu</mat-icon>
-        </button>
-        <h1>Musicbrainz Browser</h1>
-    </mat-toolbar>
-
     <mat-sidenav-container>
         <mat-sidenav #sidenav fixedInViewport="true">
             <mat-toolbar color="primary">
@@ -29,7 +22,15 @@
             </mat-nav-list>
         </mat-sidenav>
         <!--        <div [@routerAnimation]="getState(route)">-->
+        <mat-toolbar color="primary" id="main-toolbar">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon class="mat-24">menu</mat-icon>
+            </button>
+            <h1>Musicbrainz Browser</h1>
+        </mat-toolbar>
+        <div class="mat-typography">
             <router-outlet #route="outlet"></router-outlet>
+        </div>
         <!--        </div>-->
     </mat-sidenav-container>
 </div>

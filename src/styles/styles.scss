@@ -1,0 +1,73 @@
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import 'bootstrap';
+@import '~@angular/material/theming';
+
+@include mat-core();
+$mb-app-primary: mat-palette($mat-deep-orange);
+$mb-app-accent: mat-palette($mat-purple);
+$mb-app-theme: mat-light-theme($mb-app-primary, $mb-app-accent);
+@include angular-material-theme($mb-app-theme);
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.mat-raised-button, .mat-tab-label {
+    text-transform: uppercase;
+}
+
+.mat-grid-tile.release-group {
+    background-size: cover;
+}
+
+ul.mb-list-inline {
+    padding-left: 0;
+    list-style: none;
+
+    li {
+        display: inline;
+    }
+
+    li:not(:last-child):after {
+        content: ", ";
+    }
+}
+
+/* Form */
+
+.mb-form-field-no-hint {
+    .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+    }
+}
+
+/* Sidenav */
+
+.mat-drawer {
+    min-width: 15rem !important;
+}
+
+.mat-sidenav-content {
+
+    padding-top: 56px;
+    min-height: calc(100vh - 56px);
+
+    .mat-toolbar {
+        position: fixed;
+        top: 0;
+        z-index: 1;
+    }
+}
+
+@include media-breakpoint-up(sm, $grid-breakpoints) {
+    .mat-sidenav-content {
+        padding-top: 64px;
+        min-height: calc(100vh - 64px);
+    }
+}

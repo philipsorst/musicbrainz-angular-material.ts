@@ -1,14 +1,14 @@
 <ng-container *ngIf="(release$ | async) as release">
-    <mat-card [releaseCover]="release">
-        <h2 class="mat-title" [artist-credits]="release.artistCredits"></h2>
+    <mat-card [releaseCover]="release" class="mb-3">
+        <h2 class="mat-title mb-1 text-muted" [artist-credits]="release.artistCredits"></h2>
         <h1 class="mat-headline">{{release.title}}</h1>
     </mat-card>
 
-    <mat-card *ngFor="let medium of release.media" class="card-standalone card-compact">
-        <mat-list>
+    <mat-card *ngFor="let medium of release.media">
+        <mat-list class="mt-0">
             <mat-list-item *ngFor="let track of medium.tracks">
-                <h3 mat-line>{{track.title}}</h3>
-                <p [artist-credits]="track.recording.artistCredits" mat-line></p>
+                <h3 mat-line>{{track.position}} {{track.title}}</h3>
+                <p mat-line class="text-muted" [artist-credits]="track.recording.artistCredits"></p>
             </mat-list-item>
         </mat-list>
     </mat-card>
