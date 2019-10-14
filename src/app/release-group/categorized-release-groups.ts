@@ -1,4 +1,4 @@
-import {ReleaseGroup} from '../model/release-group';
+import {ReleaseGroup} from './release-group';
 
 export class CategorizedReleaseGroups
 {
