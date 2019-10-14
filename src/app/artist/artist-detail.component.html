@@ -12,7 +12,7 @@
           *ngIf="(categorizedReleaseGroups$ | async) as categorizedReleaseGroups">
     <mat-tab-group>
         <mat-tab label="Album" *ngIf="categorizedReleaseGroups.albums.length > 0">
-            <mat-grid-list [cols]="numCols()" rowHeight="1:1">
+            <mat-grid-list [cols]="(gridColumns$ | async)" rowHeight="1:1">
                 <mat-grid-tile
                         *ngFor="let releaseGroup of categorizedReleaseGroups.albums | mbReleaseroupSecondaryType:secondaryTypes; trackBy: trackById"
                         [releaseGroupCover]="releaseGroup" class="release-group"
@@ -25,7 +25,7 @@
             </mat-grid-list>
         </mat-tab>
         <mat-tab label="Single" *ngIf="categorizedReleaseGroups.singles.length > 0">
-            <mat-grid-list [cols]="numCols()" rowHeight="1:1">
+            <mat-grid-list [cols]="(gridColumns$ | async)" rowHeight="1:1">
                 <mat-grid-tile *ngFor="let releaseGroup of categorizedReleaseGroups.singles"
                                [releaseGroupCover]="releaseGroup"
                                class="release-group" (click)="showReleaseGroup(releaseGroup)">
@@ -37,7 +37,7 @@
             </mat-grid-list>
         </mat-tab>
         <mat-tab label="EP" *ngIf="categorizedReleaseGroups.eps.length > 0">
-            <mat-grid-list [cols]="numCols()" rowHeight="1:1">
+            <mat-grid-list [cols]="(gridColumns$ | async)" rowHeight="1:1">
                 <mat-grid-tile *ngFor="let releaseGroup of categorizedReleaseGroups.eps"
                                [releaseGroupCover]="releaseGroup"
                                class="release-group" (click)="showReleaseGroup(releaseGroup)">
@@ -49,7 +49,7 @@
             </mat-grid-list>
         </mat-tab>
         <mat-tab label="Broadcast" *ngIf="categorizedReleaseGroups.broadcasts.length > 0">
-            <mat-grid-list [cols]="numCols()" rowHeight="1:1">
+            <mat-grid-list [cols]="(gridColumns$ | async)" rowHeight="1:1">
                 <mat-grid-tile *ngFor="let releaseGroup of categorizedReleaseGroups.broadcasts"
                                [releaseGroupCover]="releaseGroup"
                                class="release-group" (click)="showReleaseGroup(releaseGroup)">
@@ -61,7 +61,7 @@
             </mat-grid-list>
         </mat-tab>
         <mat-tab label="Other" *ngIf="categorizedReleaseGroups.others.length > 0">
-            <mat-grid-list [cols]="numCols()" rowHeight="1:1">
+            <mat-grid-list [cols]="(gridColumns$ | async)" rowHeight="1:1">
                 <mat-grid-tile *ngFor="let releaseGroup of categorizedReleaseGroups.others"
                                [releaseGroupCover]="releaseGroup"
                                class="release-group" (click)="showReleaseGroup(releaseGroup)">

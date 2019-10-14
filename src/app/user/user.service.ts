@@ -2,11 +2,12 @@ import {Artist} from "../artist/artist";
 import {Injectable} from "@angular/core";
 
 @Injectable()
-export class UserService {
+export class UserService
+{
+    private static KEY_RECENT_ARTISTS: string = 'ddr_mb.recent_artists';
 
-    private static KEY_RECENT_ARTISTS: string = 'recent_artists';
-
-    public listRecentArtists(): Array<Artist> {
+    public listRecentArtists(): Array<Artist>
+    {
         let artists = JSON.parse(localStorage.getItem(UserService.KEY_RECENT_ARTISTS));
         if (null === artists) {
             artists = [];
@@ -15,7 +16,8 @@ export class UserService {
         return artists;
     }
 
-    public addRecentArtist(artist: Artist) {
+    public addRecentArtist(artist: Artist)
+    {
         let artists = this.listRecentArtists().filter((element) => {
             return element.id !== artist.id;
         });

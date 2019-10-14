@@ -9,8 +9,9 @@ import {MusicbrainzEntity} from "../api/musicbrainz-entity";
 import {MusicbrainzService} from "../api/musicbrainz.service";
 import {CacheService} from "../cache/cache.service";
 import {Observable, Subscription} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {CategorizedReleaseGroups} from '../release-group/categorized-release-groups';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Component({
     templateUrl: './artist-detail.component.html'
@@ -25,6 +26,8 @@ export class ArtistDetailComponent implements OnInit
 
     public secondaryTypes: Array<string> = [];
 
+    public gridColumns$: Observable<number>;
+
     private mediaSubscription: Subscription;
 
     @ViewChild(MatGridList, {static: true})
@@ -35,7 +38,8 @@ export class ArtistDetailComponent implements OnInit
         private router: Router,
         private userService: UserService,
         private musicbrainzService: MusicbrainzService,
-        private cacheService: CacheService
+        private cacheService: CacheService,
+        private breakpointObserver: BreakpointObserver
     )
     {
     }
@@ -50,7 +54,8 @@ export class ArtistDetailComponent implements OnInit
         );
 
         this.artist$ = $id.pipe(
-            switchMap(id => this.musicbrainzService.findArtist(id))
+            switchMap(id => this.musicbrainzService.findArtist(id)),
+            tap(artist => this.userService.addRecentArtist(artist))
         );
 
         this.categorizedReleaseGroups$ = $id.pipe(
@@ -58,35 +63,31 @@ export class ArtistDetailComponent implements OnInit
             map(releaseGroups => this.categorizeReleaseGroups(releaseGroups))
         );
 
-        // this.routeSubscription = this.route.params.subscribe((parameters) => {
-        //     let id = parameters['id'];
-        //     let result = this.cacheService.getEntry(this.getCacheKey(id));
-        //     if (null !== result) {
-        //         this.artist = result.artist;
-        //         this.userService.addRecentArtist(this.artist);
-        //         this.sortReleaseGroups(result.releaseGroups);
-        //     } else {
-        //         this.loading = true;
-        //         Promise.all([
-        //             this.musicbrainzService.findArtist(id),
-        //             this.musicbrainzService.listAllReleaseGroupsByArtist(id)
-        //         ])
-        //             .then(([artist, releaseGroups]) => {
-        //                 this.artist = artist;
-        //                 this.userService.addRecentArtist(this.artist);
-        //                 this.sortReleaseGroups(releaseGroups);
-        //                 this.cacheService.setEntry(this.getCacheKey(id), {
-        //                     'artist': artist,
-        //                     'releaseGroups': releaseGroups
-        //                 });
-        //                 this.loading = false;
-        //             })
-        //             .catch(reason => {
-        //                 console.error(reason);
-        //                 this.loading = false;
-        //             });
-        //     }
-        // });
+        this.gridColumns$ = this.breakpointObserver.observe([
+            Breakpoints.XSmall,
+            Breakpoints.Small,
+            Breakpoints.Medium,
+            Breakpoints.Large,
+            Breakpoints.XLarge
+        ]).pipe(map(result => {
+            if (this.breakpointObserver.isMatched(Breakpoints.XLarge)) {
+                return 6;
+            }
+            if (this.breakpointObserver.isMatched(Breakpoints.Large)) {
+                return 5;
+            }
+            if (this.breakpointObserver.isMatched(Breakpoints.Medium)) {
+                return 4;
+            }
+            if (this.breakpointObserver.isMatched(Breakpoints.Small)) {
+                return 3;
+            }
+            if (this.breakpointObserver.isMatched(Breakpoints.XSmall)) {
+                return 2;
+            }
+
+            return 1;
+        }));
     }
 
     public numCols()
@@ -155,8 +156,6 @@ export class ArtistDetailComponent implements OnInit
                 }
             }
         }
-
-        console.log('sadfhwef', categorizedReleaseGroups);
 
         return categorizedReleaseGroups;
     }
