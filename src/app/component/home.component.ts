@@ -5,14 +5,19 @@ import {Artist} from "../model/artist";
 @Component({
     templateUrl: './home.component.html',
 })
-export class HomeComponent implements OnInit {
-
+export class HomeComponent implements OnInit
+{
     public recentArtists: Array<Artist>;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService)
+    {
     }
 
-    ngOnInit(): void {
+    /**
+     * @override
+     */
+    public ngOnInit(): void
+    {
         this.recentArtists = this.userService.listRecentArtists();
     }
 }

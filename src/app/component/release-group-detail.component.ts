@@ -1,47 +1,39 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Subscription} from "rxjs";
+import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {MusicbrainzService} from "../service/musicbrainz.service";
 import {ReleaseGroup} from "../model/release-group";
 import {Release} from "../model/release";
+import {map, switchMap} from 'rxjs/operators';
 
 @Component({
     templateUrl: './release-group-detail.component.html'
 })
-export class ReleaseGroupDetailComponent implements OnInit, OnDestroy {
+export class ReleaseGroupDetailComponent implements OnInit
+{
+    public releaseGroup$: Observable<ReleaseGroup>;
 
-    public loading: boolean = false;
+    public releases$: Observable<Release[]>;
 
-    public releaseGroup: ReleaseGroup;
-
-    public releases: Array<Release>;
-
-    private routeSubscription: Subscription;
-
-    constructor(private route: ActivatedRoute, private musicbrainzService: MusicbrainzService) {
+    constructor(private route: ActivatedRoute, private musicbrainzService: MusicbrainzService)
+    {
     }
 
-    ngOnInit(): void {
-        this.routeSubscription = this.route.params.subscribe((parameters) => {
-            let id = parameters.id;
-            this.loading = true;
-            Promise.all([
-                this.musicbrainzService.findReleaseGroup(id),
-                this.musicbrainzService.listAllReleases(id)
-            ])
-                .then(([releaseGroup, releases]) => {
-                    this.releaseGroup = releaseGroup;
-                    this.releases = releases;
-                    this.loading = false;
-                })
-                .catch((reason) => {
-                    this.loading = false;
-                    console.error(reason);
-                })
-        });
-    }
+    /**
+     * @override
+     */
+    public ngOnInit(): void
+    {
+        const $id = this.route.paramMap.pipe(
+            map(paramMap => paramMap.get('id'))
+        );
 
-    ngOnDestroy(): void {
-        this.routeSubscription.unsubscribe()
+        this.releaseGroup$ = $id.pipe(
+            switchMap(id => this.musicbrainzService.findReleaseGroup(id))
+        );
+
+        this.releases$ = $id.pipe(
+            switchMap(id => this.musicbrainzService.listAllReleasesByReleaseGroup(id))
+        );
     }
 }

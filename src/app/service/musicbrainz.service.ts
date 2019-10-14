@@ -1,96 +1,206 @@
 import {Injectable} from "@angular/core";
-import {Restangular} from "ngx-restangular";
 import {ReleaseGroup} from "../model/release-group";
-import {Observable} from "rxjs/Observable";
 import {PaginatedArray} from "../module/paginated-array";
-import {Release} from "../model/release";
 import {Artist} from "../model/artist";
 import {Recording} from "../model/recording";
+import {HttpClient} from '@angular/common/http';
+import {EMPTY, Observable} from 'rxjs';
+import {expand, map, reduce} from 'rxjs/operators';
+import {Release} from '../model/release';
 
 @Injectable()
-export class MusicbrainzService {
+export class MusicbrainzService
+{
+    private static readonly BASE_URL = 'https://musicbrainz.org/ws/2/';
 
-    constructor(private restangular: Restangular) {
+    constructor(private httpClient: HttpClient)
+    {
     }
 
-    public findArtist(id: string): Promise<Artist> {
-        return this.restangular.one('artist', id).get().toPromise();
+    public findArtist(id: string): Observable<Artist>
+    {
+        return this.httpClient.get<Artist>('https://musicbrainz.org/ws/2/artist/' + id);
     }
 
-    public findReleaseGroup(id: string): Promise<ReleaseGroup> {
-        return this.restangular.one('release-group', id).get({'inc': 'artists'}).toPromise();
+    public findReleaseGroup(id: string): Observable<ReleaseGroup>
+    {
+        return this.httpClient.get<ReleaseGroup>('https://musicbrainz.org/ws/2/release-group/' + id, {params: {'inc': 'artists'}});
     }
 
-    public findRelease(id: string): Promise<Release> {
-        return this.restangular.one('release', id).get({'inc': 'artists+recordings+artist-credits'}).toPromise();
+    public findRelease(id: string): Observable<Release>
+    {
+        return this.httpClient.get<Release>('https://musicbrainz.org/ws/2/release/' + id, {params: {'inc': 'artists+recordings+artist-credits'}});
     }
 
-    public listAllReleaseGroups(artistId: string): Promise<Array<ReleaseGroup>> {
+    public listAllReleaseGroupsByArtist(artistId: string): Observable<ReleaseGroup[]>
+    {
+        return this.collectPaginated<ReleaseGroup>(
+            'release-group',
+            'release-groups',
+            ReleaseGroup.parse,
+            {artist: artistId}
+        );
 
-        let allReleaseGroups: Array<ReleaseGroup> = [];
+    }
 
-        let localRestangular = this.restangular;
+    public listAllReleasesByReleaseGroup(releaseGroupId: string): Observable<Array<Release>>
+    {
+        return this.collectPaginated<Release>(
+            'release',
+            'releases',
+            Release.parse,
+            {'release-group': releaseGroupId}
+        );
+    }
 
-        let limit = 100;
+    public searchArtists(searchString: string): Observable<PaginatedArray<Artist>>
+    {
+        return this.getPaginated<Artist>(
+            'artist',
+            'artists',
+            Artist.parse,
+            {'query': 'artist:(' + searchString + ')'}
+        );
+    }
 
-        function fetchReleaseGroups(artistId: string, offset: number, limit: number = 100): Observable<PaginatedArray<ReleaseGroup>> {
-            return localRestangular.all('release-group').getList({
-                'artist': artistId,
-                'limit': limit,
-                'offset': offset
-            });
+    public searchReleaseGroups(searchString: string): Observable<PaginatedArray<ReleaseGroup>>
+    {
+        return this.getPaginated<ReleaseGroup>(
+            'release-group',
+            'release-groups',
+            ReleaseGroup.parse,
+            {'query': 'releasegroup:(' + searchString + ')'}
+        );
+    }
+
+    public searchReleases(searchString: string): Observable<PaginatedArray<Release>>
+    {
+        return this.getPaginated(
+            'release',
+            'releases',
+            Release.parse,
+            {'query': 'release:(' + searchString + ')'}
+        );
+    }
+
+    public searchRecordings(searchString: string): Observable<PaginatedArray<Recording>>
+    {
+        return this.getPaginated(
+            'recording',
+            'recordings',
+            Recording.parse,
+            {'query': 'recording:(' + searchString + ')'}
+        );
+    }
+
+    private getPaginated<T>(
+        path: string,
+        resultProperty: string,
+        parser: (data: any) => T,
+        params?: | { [p: string]: string | string[] }
+    ): Observable<PaginatedArray<T>>
+    {
+        return this.httpClient.get<any>(MusicbrainzService.BASE_URL + path, {params}).pipe(
+            map(data => {
+                let paginatedArray: PaginatedArray<T> = new PaginatedArray<T>();
+                for (let arrayData of data[resultProperty]) {
+                    paginatedArray.push(parser(arrayData));
+                }
+                paginatedArray.pagination = {
+                    'count': this.findCount(data),
+                    'offset': this.findOffset(data)
+                };
+
+                return paginatedArray;
+            })
+        )
+    }
+
+    private collectPaginated<T>(
+        path: string,
+        resultProperty: string,
+        parser: (data: any) => T,
+        params?: | { [p: string]: string | string[] },
+        limit = 100
+    )
+    {
+        if (null == params) {
+            params = {};
+        }
+        params.offset = String(0);
+        params.limit = String(limit);
+
+        return this.getPaginated(
+            path,
+            resultProperty,
+            parser,
+            params
+        ).pipe(
+            expand(paginatedArray => {
+                if (paginatedArray.pagination.offset + limit > paginatedArray.pagination.count) {
+                    return EMPTY;
+                }
+
+                params.offset = String(paginatedArray.pagination.offset + limit);
+
+                return this.getPaginated(
+                    path,
+                    resultProperty,
+                    parser,
+                    params
+                )
+            }),
+            reduce((
+                collectedResults,
+                paginatedArray
+            ) => collectedResults.concat(paginatedArray), [])
+        )
+    }
+
+    private findCount(data: any)
+    {
+        if (data.hasOwnProperty('count')) {
+            return data['count'];
         }
 
-        function fetchmorepages(paginatedReleaseGroups: PaginatedArray<ReleaseGroup>) {
-            allReleaseGroups = allReleaseGroups.concat(paginatedReleaseGroups);
-            if (paginatedReleaseGroups.pagination.offset + limit < paginatedReleaseGroups.pagination.count) {
-                return fetchReleaseGroups(artistId, paginatedReleaseGroups.pagination.offset + limit, limit).toPromise().then(fetchmorepages);
-            }
-
-            return allReleaseGroups;
+        if (data.hasOwnProperty('artist-count')) {
+            return data['artist-count'];
         }
 
-        return fetchReleaseGroups(artistId, 0, limit).toPromise().then(fetchmorepages)
-    }
-
-    public listAllReleases(releaseGroupId: string): Promise<Array<Release>> {
-        let localRestangular = this.restangular;
-        let allReleases: Array<Release> = [];
-        let limit = 100;
-
-        function fetchReleaseGroups(releaseGroupId: string, offset: number, limit: number = 100): Observable<PaginatedArray<Release>> {
-            return localRestangular.all('release').getList({
-                'release-group': releaseGroupId,
-                'limit': limit,
-                'offset': offset
-            });
+        if (data.hasOwnProperty('release-group-count')) {
+            return data['release-group-count'];
         }
 
-        function fetchmorepages(paginatedReleases: PaginatedArray<Release>) {
-            allReleases = allReleases.concat(paginatedReleases);
-            if (paginatedReleases.pagination.offset + limit < paginatedReleases.pagination.count) {
-                return fetchReleaseGroups(releaseGroupId, paginatedReleases.pagination.offset + limit, limit).toPromise().then(fetchmorepages);
-            }
-
-            return allReleases;
+        if (data.hasOwnProperty('release-count')) {
+            return data['release-count'];
         }
 
-        return fetchReleaseGroups(releaseGroupId, 0, limit).toPromise().then(fetchmorepages)
+        if (data.hasOwnProperty('recording-count')) {
+            return data['recording-count'];
+        }
+
+        console.error('No count found', data);
+
+        return 0;
     }
 
-    public searchArtists(searchString: string): Promise<PaginatedArray<Artist>> {
-        return this.restangular.all('artist').getList({'query': 'artist:(' + searchString + ')'}).toPromise();
-    }
+    private findOffset(data: any)
+    {
 
-    public searchReleaseGroups(searchString: string): Promise<PaginatedArray<ReleaseGroup>> {
-        return this.restangular.all('release-group').getList({'query': 'releasegroup:(' + searchString + ')'}).toPromise();
-    }
+        if (data.hasOwnProperty('offset')) {
+            return data['offset'];
+        }
 
-    public searchReleases(searchString: string): Promise<PaginatedArray<Release>> {
-        return this.restangular.all('release').getList({'query': 'release:(' + searchString + ')'}).toPromise();
-    }
+        if (data.hasOwnProperty('release-group-offset')) {
+            return data['release-group-offset'];
+        }
 
-    public searchRecordings(searchString: string): Promise<PaginatedArray<Recording>> {
-        return this.restangular.all('recording').getList({'query': 'recording:(' + searchString + ')'}).toPromise();
+        if (data.hasOwnProperty('release-offset')) {
+            return data['release-offset'];
+        }
+
+        console.error('No offset found', data);
+
+        return 0;
     }
 }

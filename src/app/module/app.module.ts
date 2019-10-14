@@ -4,8 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from '../component/app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {RestangularConfigFactory} from "../service/restangular.factory";
-import {RestangularModule} from "ngx-restangular";
 import {
     MatButtonModule,
     MatCardModule,
@@ -21,19 +19,20 @@ import {
 } from "@angular/material";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {SearchComponent} from "../component/search.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ArtistDetailComponent} from "../component/artist-detail.component";
 import {ReleaseGroupCoverDirective} from "../directive/release-group-cover.directive";
 import {FlexDatePipe} from "../pipe/flex-date.pipe";
 import {HomeComponent} from "../component/home.component";
 import {UserService} from "../service/user.service";
-import {SecondaryTypePipe} from "../pipe/secondary-type.pipe";
+import {MbSecondaryTypePipe} from "../pipe/secondary-type.pipe";
 import {MusicbrainzService} from "../service/musicbrainz.service";
 import {ReleaseGroupDetailComponent} from "../component/release-group-detail.component";
 import {ArtistCreditsComponent} from "../component/artist-credits.component";
 import {ReleaseDetailComponent} from "../component/release-detail.component";
 import {CacheService} from "../service/cache.service";
 import {ReleaseCoverDirective} from "../directive/release-cover.directive";
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -47,13 +46,14 @@ import {ReleaseCoverDirective} from "../directive/release-cover.directive";
         ReleaseGroupCoverDirective,
         ReleaseCoverDirective,
         FlexDatePipe,
-        SecondaryTypePipe
+        MbSecondaryTypePipe
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        RestangularModule.forRoot(RestangularConfigFactory),
+        ReactiveFormsModule,
+        HttpClientModule,
         AppRoutingModule,
         MatToolbarModule,
         MatSidenavModule,

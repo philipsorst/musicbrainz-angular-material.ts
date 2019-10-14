@@ -1,13 +1,9 @@
-<div *ngIf="loading" class="loader">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
+<ng-container *ngIf="(release$ | async) as release">
+    <mat-card [releaseCover]="release">
+        <h2 class="mat-title" [artist-credits]="release.artistCredits"></h2>
+        <h1 class="mat-headline">{{release.title}}</h1>
+    </mat-card>
 
-<mat-card *ngIf="!loading && release != null" [releaseCover]="release">
-    <h2 class="mat-title" [artist-credits]="release.artistCredits"></h2>
-    <h1 class="mat-headline">{{release.title}}</h1>
-</mat-card>
-
-<div *ngIf="!loading && release != null">
     <mat-card *ngFor="let medium of release.media" class="card-standalone card-compact">
         <mat-list>
             <mat-list-item *ngFor="let track of medium.tracks">
@@ -16,4 +12,4 @@
             </mat-list-item>
         </mat-list>
     </mat-card>
-</div>
+</ng-container>

@@ -5,7 +5,8 @@ import {ArtistCredit} from "../model/artist-credit";
     selector: '[artist-credits]',
     templateUrl: './artist-credits.component.html'
 })
-export class ArtistCreditsComponent {
+export class ArtistCreditsComponent
+{
     @Input('artist-credits')
     public artistCredits: Array<ArtistCredit>;
 }

@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {animate, query, style, transition, trigger,} from '@angular/animations';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         trigger('routerAnimation', [
             transition('* <=> *', [
@@ -49,7 +50,6 @@ export class AppComponent
 
     public getState(outlet)
     {
-        console.log('HIER', outlet.activatedRouteData);
         return outlet.activatedRouteData.state;
     }
 }

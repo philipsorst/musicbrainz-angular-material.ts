@@ -2,18 +2,19 @@
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
 
-<div *ngIf="!loading">
+<div *ngIf="(artist$ | async) as artist">
     <mat-card>
         <h1 class="mat-headline">{{artist.name}}</h1>
     </mat-card>
 </div>
 
-<mat-card class="card-standalone card-nopadding" *ngIf="!loading">
+<mat-card class="card-standalone card-nopadding"
+          *ngIf="(categorizedReleaseGroups$ | async) as categorizedReleaseGroups">
     <mat-tab-group>
-        <mat-tab label="Album" *ngIf="releaseGroups.album.length > 0">
+        <mat-tab label="Album" *ngIf="categorizedReleaseGroups.albums.length > 0">
             <mat-grid-list [cols]="numCols()" rowHeight="1:1">
                 <mat-grid-tile
-                        *ngFor="let releaseGroup of releaseGroups.album | secondaryType:secondaryTypes; trackBy: trackById"
+                        *ngFor="let releaseGroup of categorizedReleaseGroups.albums | mbSecondaryType:secondaryTypes; trackBy: trackById"
                         [releaseGroupCover]="releaseGroup" class="release-group"
                         (click)="showReleaseGroup(releaseGroup)">
                     <mat-grid-tile-footer>
@@ -23,10 +24,11 @@
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-tab>
-        <mat-tab label="Single" *ngIf="releaseGroups.single.length > 0">
+        <mat-tab label="Single" *ngIf="categorizedReleaseGroups.singles.length > 0">
             <mat-grid-list [cols]="numCols()" rowHeight="1:1">
-                <mat-grid-tile *ngFor="let releaseGroup of releaseGroups.single" [releaseGroupCover]="releaseGroup"
-                              class="release-group" (click)="showReleaseGroup(releaseGroup)">
+                <mat-grid-tile *ngFor="let releaseGroup of categorizedReleaseGroups.singles"
+                               [releaseGroupCover]="releaseGroup"
+                               class="release-group" (click)="showReleaseGroup(releaseGroup)">
                     <mat-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
@@ -34,10 +36,11 @@
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-tab>
-        <mat-tab label="EP" *ngIf="releaseGroups.ep.length > 0">
+        <mat-tab label="EP" *ngIf="categorizedReleaseGroups.eps.length > 0">
             <mat-grid-list [cols]="numCols()" rowHeight="1:1">
-                <mat-grid-tile *ngFor="let releaseGroup of releaseGroups.ep" [releaseGroupCover]="releaseGroup"
-                              class="release-group" (click)="showReleaseGroup(releaseGroup)">
+                <mat-grid-tile *ngFor="let releaseGroup of categorizedReleaseGroups.eps"
+                               [releaseGroupCover]="releaseGroup"
+                               class="release-group" (click)="showReleaseGroup(releaseGroup)">
                     <mat-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
@@ -45,10 +48,11 @@
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-tab>
-        <mat-tab label="Broadcast" *ngIf="releaseGroups.broadcast.length > 0">
+        <mat-tab label="Broadcast" *ngIf="categorizedReleaseGroups.broadcasts.length > 0">
             <mat-grid-list [cols]="numCols()" rowHeight="1:1">
-                <mat-grid-tile *ngFor="let releaseGroup of releaseGroups.broadcast" [releaseGroupCover]="releaseGroup"
-                              class="release-group" (click)="showReleaseGroup(releaseGroup)">
+                <mat-grid-tile *ngFor="let releaseGroup of categorizedReleaseGroups.broadcasts"
+                               [releaseGroupCover]="releaseGroup"
+                               class="release-group" (click)="showReleaseGroup(releaseGroup)">
                     <mat-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>
@@ -56,10 +60,11 @@
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-tab>
-        <mat-tab label="Other" *ngIf="releaseGroups.other.length > 0">
+        <mat-tab label="Other" *ngIf="categorizedReleaseGroups.others.length > 0">
             <mat-grid-list [cols]="numCols()" rowHeight="1:1">
-                <mat-grid-tile *ngFor="let releaseGroup of releaseGroups.other" [releaseGroupCover]="releaseGroup"
-                              class="release-group" (click)="showReleaseGroup(releaseGroup)">
+                <mat-grid-tile *ngFor="let releaseGroup of categorizedReleaseGroups.others"
+                               [releaseGroupCover]="releaseGroup"
+                               class="release-group" (click)="showReleaseGroup(releaseGroup)">
                     <mat-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>

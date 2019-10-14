@@ -1,13 +1,9 @@
-<div *ngIf="loading" class="loader">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
-
-<mat-card *ngIf="!loading && releaseGroup != null">
+<mat-card *ngIf="(releaseGroup$ | async) as releaseGroup">
     <h2 class="mat-title" [artist-credits]="releaseGroup.artistCredits"></h2>
     <h1 class="mat-headline">{{releaseGroup.title}}</h1>
 </mat-card>
 
-<mat-card class="card-standalone card-compact" *ngIf="!loading">
+<mat-card class="card-standalone card-compact" *ngIf="(releases$ | async) as releases">
     <mat-nav-list>
         <a mat-list-item *ngFor="let release of releases"
            [routerLink]="['/release', release.id]">

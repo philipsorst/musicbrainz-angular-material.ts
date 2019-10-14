@@ -3,25 +3,17 @@
 
         <mat-card class="card-standalone">
             <mat-card-content>
-                <form (ngSubmit)="searchArtists()" #artistSearchForm="ngForm">
-                    <div>
-                        <mat-form-field>
-                            <input matInput type="text" placeholder="Search" [(ngModel)]="searchString.artists"
-                                   name="artist" />
-                        </mat-form-field>
-                    </div>
-                    <button type="submit" mat-raised-button color="primary">Search</button>
-                </form>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Search" [formControl]="artistSearchControl"
+                           name="artist" />
+                </mat-form-field>
+
             </mat-card-content>
         </mat-card>
 
-        <div *ngIf="loading.artists" class="loader">
-            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-        </div>
-
-        <mat-card class="card-standalone" *ngIf="result.artists">
+        <mat-card class="card-standalone" *ngIf="(artists$ | async) as artists">
             <mat-nav-list>
-                <a mat-list-item *ngFor="let artist of result.artists; trackBy: trackById"
+                <a mat-list-item *ngFor="let artist of artists; trackBy: trackById"
                    [routerLink]="['/artists', artist.id]">
                     <h3 mat-line>{{artist.name}}</h3>
                     <p mat-line>{{artist.disambiguation}}</p>
@@ -34,25 +26,16 @@
 
         <mat-card class="card-standalone">
             <mat-card-content>
-                <form (ngSubmit)="searchReleaseGroups()" #releaseGroupSearchForm="ngForm">
-                    <div>
-                        <mat-form-field>
-                            <input matInput type="text" placeholder="Search" [(ngModel)]="searchString.releaseGroups"
-                                   name="releaseGroup" />
-                        </mat-form-field>
-                    </div>
-                    <button type="submit" mat-raised-button color="primary">Search</button>
-                </form>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Search" [formControl]="releaseGroupSearchControl"
+                           name="releaseGroup" />
+                </mat-form-field>
             </mat-card-content>
         </mat-card>
 
-        <div *ngIf="loading.releaseGroups" class="loader">
-            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-        </div>
-
-        <mat-card class="card-standalone" *ngIf="result.releaseGroups">
+        <mat-card class="card-standalone" *ngIf="(releaseGroups$ | async) as releaseGroups">
             <mat-nav-list>
-                <a mat-list-item *ngFor="let releaseGroup of result.releaseGroups; trackBy: trackById"
+                <a mat-list-item *ngFor="let releaseGroup of releaseGroups; trackBy: trackById"
                    [routerLink]="['/release-group', releaseGroup.id]">
                     <h3 mat-line>{{releaseGroup.title}}</h3>
                     <p mat-line [artist-credits]="releaseGroup.artistCredits"></p>
@@ -65,25 +48,16 @@
 
         <mat-card class="card-standalone">
             <mat-card-content>
-                <form (ngSubmit)="searchReleases()" #releaseSearchForm="ngForm">
-                    <div>
-                        <mat-form-field>
-                            <input matInput type="text" placeholder="Search" [(ngModel)]="searchString.releases"
-                                   name="release" />
-                        </mat-form-field>
-                    </div>
-                    <button type="submit" mat-raised-button color="primary">Search</button>
-                </form>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Search" [formControl]="releaseSearchControl"
+                           name="release" />
+                </mat-form-field>
             </mat-card-content>
         </mat-card>
 
-        <div *ngIf="loading.releases" class="loader">
-            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-        </div>
-
-        <mat-card class="card-standalone" *ngIf="result.releases">
+        <mat-card class="card-standalone" *ngIf="(releases$ | async) as releases">
             <mat-nav-list>
-                <a mat-list-item *ngFor="let release of result.releases; trackBy: trackById"
+                <a mat-list-item *ngFor="let release of releases; trackBy: trackById"
                    [routerLink]="['/release', release.id]">
                     <h3 mat-line>{{release.title}}</h3>
                     <p mat-line [artist-credits]="release.artistCredits"></p>
@@ -96,25 +70,16 @@
 
         <mat-card class="card-standalone">
             <mat-card-content>
-                <form (ngSubmit)="searchRecordings()" #recordingSearchForm="ngForm">
-                    <div>
-                        <mat-form-field>
-                            <input matInput type="text" placeholder="Search" [(ngModel)]="searchString.recordings"
-                                   name="recording" />
-                        </mat-form-field>
-                    </div>
-                    <button type="submit" mat-raised-button color="primary">Search</button>
-                </form>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Search" [formControl]="recordingSearchControl"
+                           name="recording" />
+                </mat-form-field>
             </mat-card-content>
         </mat-card>
 
-        <div *ngIf="loading.recordings" class="loader">
-            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-        </div>
-
-        <mat-card class="card-standalone" *ngIf="result.recordings">
+        <mat-card class="card-standalone" *ngIf="(recordings$ | async) as recordings">
             <mat-nav-list>
-                <a mat-list-item *ngFor="let recording of result.recordings; trackBy: trackById"
+                <a mat-list-item *ngFor="let recording of recordings; trackBy: trackById"
                    [routerLink]="['/recording', recording.id]">
                     <h3 mat-line>{{recording.title}}</h3>
                     <p mat-line [artist-credits]="recording.artistCredits"></p>

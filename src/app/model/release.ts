@@ -12,7 +12,8 @@ export class Release extends MusicbrainzEntity {
     artistCredits: Array<ArtistCredit>;
     media: Array<Medium>;
 
-    public static parse(data: any) {
+    public static parse(data: any): Release
+    {
         let release = new Release();
         release.id = data['id'];
         release.title = data['title'];
