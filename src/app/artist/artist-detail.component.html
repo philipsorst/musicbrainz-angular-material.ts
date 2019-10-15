@@ -16,14 +16,15 @@
     </mat-card>
 </div>
 
-<mat-card class="" *ngIf="(categorizedReleaseGroups$ | async) as categorizedReleaseGroups">
+<mat-card *ngIf="(categorizedReleaseGroups$ | async) as categorizedReleaseGroups">
     <mat-tab-group>
         <mat-tab label="Album" *ngIf="categorizedReleaseGroups.albums.length > 0">
-            <mat-grid-list [cols]="(gridColumns$ | async)" rowHeight="1:1">
+            <mat-grid-list [cols]="(gridColumns$ | async)" rowHeight="1:1" mbGridTileLazyImgContainer>
                 <mat-grid-tile
                         *ngFor="let releaseGroup of categorizedReleaseGroups.albums; trackBy: trackById"
-                        [releaseGroupCover]="releaseGroup" class="release-group"
-                        (click)="showReleaseGroup(releaseGroup)">
+                        (click)="showReleaseGroup(releaseGroup)"
+                >
+                    <img [mbGridTileLazyImg]="'http://coverartarchive.org/release-group/' + releaseGroup.id + '/front-250'" />
                     <mat-grid-tile-footer>
                         <h3 mat-line>{{releaseGroup.title}}</h3>
                         <h4 mat-line>{{releaseGroup.firstReleaseDate | flexDate}}</h4>

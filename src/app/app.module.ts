@@ -35,7 +35,9 @@ import {ReleaseCoverDirective} from "./release/release-cover.directive";
 import {HttpClientModule} from '@angular/common/http';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
-import {MbLifeSpanPipe} from './api/life-span.pipe';
+import {LifeSpanPipe} from './api/life-span.pipe';
+import {GridTileLazyImgDirective} from './lazy-img/grid-tile-lazy-img.directive';
+import {GridTileLazyImageContainerDirective} from './lazy-img/grid-tile-lazy-image-container.directive';
 
 @NgModule({
     declarations: [
@@ -50,7 +52,9 @@ import {MbLifeSpanPipe} from './api/life-span.pipe';
         ReleaseCoverDirective,
         FlexDatePipe,
         ReleaseGroupSecondaryTypePipe,
-        MbLifeSpanPipe
+        LifeSpanPipe,
+        GridTileLazyImgDirective,
+        GridTileLazyImageContainerDirective
     ],
     imports: [
         BrowserModule,

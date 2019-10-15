@@ -5,7 +5,7 @@ import {FlexDate} from '../flex-date/flex-date';
 @Pipe({
     name: 'mbLifeSpan'
 })
-export class MbLifeSpanPipe implements PipeTransform
+export class LifeSpanPipe implements PipeTransform
 {
     /**
      * @override
