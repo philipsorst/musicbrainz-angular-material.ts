@@ -38,6 +38,7 @@ import {environment} from '../environments/environment';
 import {LifeSpanPipe} from './api/life-span.pipe';
 import {GridTileLazyImgDirective} from './lazy-img/grid-tile-lazy-img.directive';
 import {GridTileLazyImageContainerDirective} from './lazy-img/grid-tile-lazy-image-container.directive';
+import {DurationPipe} from './api/duration.pipe';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import {GridTileLazyImageContainerDirective} from './lazy-img/grid-tile-lazy-ima
         ReleaseGroupSecondaryTypePipe,
         LifeSpanPipe,
         GridTileLazyImgDirective,
-        GridTileLazyImageContainerDirective
+        GridTileLazyImageContainerDirective,
+        DurationPipe
     ],
     imports: [
         BrowserModule,

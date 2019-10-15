@@ -10,7 +10,7 @@
             <h3 mat-line>{{release.title}}</h3>
             <ul mat-line class="mb-list-inline">
                 <li *ngIf="release.country">{{release.country}}</li>
-                <li *ngIf="release.date">{{release.date | flexDate}}</li>
+                <li *ngIf="release.date">{{release.date | mbFlexDate}}</li>
             </ul>
         </a>
     </mat-nav-list>

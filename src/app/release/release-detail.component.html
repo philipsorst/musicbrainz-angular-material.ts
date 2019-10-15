@@ -4,11 +4,16 @@
         <h1 class="mat-headline">{{release.title}}</h1>
     </mat-card>
 
-    <mat-card *ngFor="let medium of release.media">
+    <mat-card *ngFor="let medium of release.media" class="mb-3">
+        <mat-card-title *ngIf="medium.title">{{medium.title}}</mat-card-title>
         <mat-list class="mt-0">
             <mat-list-item *ngFor="let track of medium.tracks">
-                <h3 mat-line>{{track.position}} {{track.title}}</h3>
+                <span matListIcon>{{track.position}}</span>
+                <h3 mat-line>{{track.title}}</h3>
                 <p mat-line class="text-muted" [artist-credits]="track.recording.artistCredits"></p>
+                <div>
+                    {{track.length|mbDuration}}
+                </div>
             </mat-list-item>
         </mat-list>
     </mat-card>

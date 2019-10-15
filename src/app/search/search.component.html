@@ -72,7 +72,11 @@
                 <a mat-list-item *ngFor="let release of releases; trackBy: trackById"
                    [routerLink]="['/release', release.id]">
                     <h3 mat-line>{{release.title}}</h3>
-                    <p mat-line [artist-credits]="release.artistCredits"></p>
+                    <p mat-line class="text-muted" [artist-credits]="release.artistCredits"></p>
+                    <ul mat-line class="mb-list-inline">
+                        <li *ngIf="release.country">{{release.country}}</li>
+                        <li *ngIf="release.date">{{release.date|mbFlexDate}}</li>
+                    </ul>
                 </a>
             </mat-nav-list>
         </mat-card>
