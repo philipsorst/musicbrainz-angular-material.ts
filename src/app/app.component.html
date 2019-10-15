@@ -19,6 +19,33 @@
                    [routerLink]="['/search']">
                     Search
                 </a>
+                <mat-divider></mat-divider>
+                <h3 matSubheader>Recent Artists</h3>
+                <a mat-list-item
+                   *ngFor="let artist of (recentArtists$ | async)"
+                   [routerLink]="['/artists', artist.id]"
+                   (click)="sidenav.close()"
+                >
+                    {{artist.name}}
+                </a>
+                <mat-divider></mat-divider>
+                <h3 matSubheader>Recent Release Groups</h3>
+                <a mat-list-item
+                   *ngFor="let releaseGroup of (recentReleaseGroups$ | async)"
+                   [routerLink]="['/release-groups', releaseGroup.id]"
+                   (click)="sidenav.close()"
+                >
+                    {{releaseGroup.title}}
+                </a>
+                <mat-divider></mat-divider>
+                <h3 matSubheader>Recent Releases</h3>
+                <a mat-list-item
+                   *ngFor="let release of (recentReleases$ | async)"
+                   [routerLink]="['/releases', release.id]"
+                   (click)="sidenav.close()"
+                >
+                    {{release.title}}
+                </a>
             </mat-nav-list>
         </mat-sidenav>
         <!--        <div [@routerAnimation]="getState(route)">-->

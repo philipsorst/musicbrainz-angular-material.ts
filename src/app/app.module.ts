@@ -23,7 +23,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ArtistDetailComponent} from "./artist/artist-detail.component";
 import {ReleaseGroupCoverDirective} from "./release-group/release-group-cover.directive";
 import {FlexDatePipe} from "./flex-date/flex-date.pipe";
-import {HomeComponent} from "./home/home.component";
 import {UserService} from "./user/user.service";
 import {ReleaseGroupSecondaryTypePipe} from "./release-group/release-group-secondary-type.pipe";
 import {MusicbrainzService} from "./api/musicbrainz.service";
@@ -43,7 +42,6 @@ import {DurationPipe} from './api/duration.pipe';
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
         ArtistCreditsComponent,
         SearchComponent,
         ArtistDetailComponent,

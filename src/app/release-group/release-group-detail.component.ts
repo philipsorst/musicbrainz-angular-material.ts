@@ -4,7 +4,8 @@ import {ActivatedRoute} from "@angular/router";
 import {MusicbrainzService} from "../api/musicbrainz.service";
 import {ReleaseGroup} from "./release-group";
 import {Release} from "../release/release";
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
+import {UserService} from '../user/user.service';
 
 @Component({
     templateUrl: './release-group-detail.component.html'
@@ -15,7 +16,8 @@ export class ReleaseGroupDetailComponent implements OnInit
 
     public releases$: Observable<Release[]>;
 
-    constructor(private route: ActivatedRoute, private musicbrainzService: MusicbrainzService)
+    constructor(
+        private route: ActivatedRoute, private musicbrainzService: MusicbrainzService, private userService: UserService)
     {
     }
 
@@ -29,7 +31,8 @@ export class ReleaseGroupDetailComponent implements OnInit
         );
 
         this.releaseGroup$ = $id.pipe(
-            switchMap(id => this.musicbrainzService.findReleaseGroup(id))
+            switchMap(id => this.musicbrainzService.findReleaseGroup(id)),
+            tap(releaseGroup => this.userService.addRecentReleaseGroup(releaseGroup))
         );
 
         this.releases$ = $id.pipe(

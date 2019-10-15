@@ -1,8 +1,0 @@
-<mat-card class="card-standalone card-compact" *ngIf="recentArtists">
-    <mat-nav-list>
-        <a mat-list-item *ngFor="let artist of recentArtists" [routerLink]="['/artists', artist.id]">
-            <h3 mat-line>{{artist.name}}</h3>
-            <p mat-line>{{artist.disambiguation}}</p>
-        </a>
-    </mat-nav-list>
-</mat-card>

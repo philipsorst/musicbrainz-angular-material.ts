@@ -1,5 +1,10 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {animate, query, style, transition, trigger,} from '@angular/animations';
+import {UserService} from './user/user.service';
+import {Observable} from 'rxjs';
+import {Artist} from './artist/artist';
+import {ReleaseGroup} from './release-group/release-group';
+import {Release} from './release/release';
 
 @Component({
     selector: 'app-root',
@@ -42,11 +47,26 @@ import {animate, query, style, transition, trigger,} from '@angular/animations';
         ])
     ]
 })
-export class AppComponent
+export class AppComponent implements OnInit
 {
-    constructor()
+    public recentArtists$: Observable<Artist[]>;
+    public recentReleaseGroups$: Observable<ReleaseGroup[]>;
+    public recentReleases$: Observable<Release[]>;
+
+    constructor(private userService: UserService)
     {
     }
+
+    /**
+     * @override
+     */
+    public ngOnInit(): void
+    {
+        this.recentArtists$ = this.userService.getRecentArtistsObservable();
+        this.recentReleaseGroups$ = this.userService.getRecentReleaseGroupsObservable();
+        this.recentReleases$ = this.userService.getRecentReleasesObservable();
+    }
+
 
     public getState(outlet)
     {

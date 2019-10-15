@@ -3,7 +3,8 @@ import {Release} from "./release";
 import {ActivatedRoute} from "@angular/router";
 import {MusicbrainzService} from "../api/musicbrainz.service";
 import {Observable} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
+import {UserService} from '../user/user.service';
 
 @Component({
     templateUrl: './release-detail.component.html'
@@ -12,7 +13,8 @@ export class ReleaseDetailComponent implements OnInit
 {
     public release$: Observable<Release>;
 
-    constructor(private route: ActivatedRoute, private musicbrainzService: MusicbrainzService)
+    constructor(
+        private route: ActivatedRoute, private musicbrainzService: MusicbrainzService, private userService: UserService)
     {
     }
 
@@ -26,7 +28,8 @@ export class ReleaseDetailComponent implements OnInit
         );
 
         this.release$ = $id.pipe(
-            switchMap(id => this.musicbrainzService.findRelease(id))
+            switchMap(id => this.musicbrainzService.findRelease(id)),
+            tap(release => this.userService.addRecentRelease(release))
         );
     }
 }
