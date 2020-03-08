@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MatGridList} from "@angular/material";
+import {MatGridList} from "@angular/material/grid-list";
 import {Artist} from "./artist";
 import {ReleaseGroup} from "../release-group/release-group";
 import {FlexDate} from "../flex-date/flex-date";
