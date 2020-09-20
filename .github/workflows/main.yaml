@@ -39,11 +39,12 @@ jobs:
         needs: build
         steps:
             -   name: Checkout
-                uses: actions/checkout@v1
+                uses: actions/checkout@v2
             -   name: Download build
-                uses: actions/download-artifact@v1
+                uses: actions/download-artifact@v2
                 with:
                     name: deploy_dist
+                    path: dist
             -   name: Find
                 run: find
             -   name: Rsync to server
