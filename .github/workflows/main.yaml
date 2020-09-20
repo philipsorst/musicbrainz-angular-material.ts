@@ -15,8 +15,8 @@ jobs:
                     node-version: '12.x'
             -   name: Install dependencies
                 run: yarn install
-            -   name: Build Prot
-                run: yar run ng build --prod --aot
+            -   name: Build Prod
+                run: yarn run ng build --prod --aot
             -   name: Archive build
                 if: success()
                 uses: actions/upload-artifact@v1
