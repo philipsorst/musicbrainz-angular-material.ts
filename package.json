@@ -9,7 +9,8 @@
         "test": "echo \"Error: no test... minimal project\" && exit 1",
         "lint": "echo \"Error: no lint... minimal project\" && exit 1",
         "e2e": "echo \"Error: no e2e... minimal project\" && exit 1",
-        "icons": "icon-gen -i src/assets/icons/icon.svg -o src/assets/icons/ --favicon name=icon- sizes=32,72,96,128,144,152,180,192,384,512"
+        "icons": "icon-gen -i src/assets/icons/icon.svg -o src/assets/icons/ --favicon name=icon- sizes=32,72,96,128,144,152,180,192,384,512",
+        "postinstall": "ngcc"
     },
     "private": true,
     "dependencies": {

@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from "@angular/core";
 import {FlexDate} from "./flex-date";
 
 @Pipe({name: 'mbFlexDate'})
-export class FlexDatePipe implements PipeTransform {
+export class FlexDatePipe implements PipeTransform
+{
     /**
      * @override
      */

@@ -9,7 +9,6 @@ export class FlexDate
 
     public static parse(dateString: string): FlexDate
     {
-
         if (dateString == null) {
             return undefined;
         }

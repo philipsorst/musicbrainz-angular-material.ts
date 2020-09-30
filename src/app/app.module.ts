@@ -36,6 +36,8 @@ import {LifeSpanPipe} from './api/life-span.pipe';
 import {GridTileLazyImgDirective} from './lazy-img/grid-tile-lazy-img.directive';
 import {GridTileLazyImageContainerDirective} from './lazy-img/grid-tile-lazy-image-container.directive';
 import {DurationPipe} from './api/duration.pipe';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
@@ -52,7 +54,7 @@ import {DurationPipe} from './api/duration.pipe';
         LifeSpanPipe,
         GridTileLazyImgDirective,
         GridTileLazyImageContainerDirective,
-        DurationPipe
+        DurationPipe,
     ],
     imports: [
         BrowserModule,
@@ -71,7 +73,9 @@ import {DurationPipe} from './api/duration.pipe';
         MatFormFieldModule,
         MatInputModule,
         MatProgressSpinnerModule,
+        MatProgressBarModule,
         MatGridListModule,
+        MatSnackBarModule,
         OverlayModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
     ],
