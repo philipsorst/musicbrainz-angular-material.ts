@@ -1,4 +1,4 @@
 #!/bin/bash
 yarn icons && \
-ng build --prod --aot --base-href https://musicbrainz.dontdrinkandroot.net && \
+yarn ng build --configuration production --aot --base-href https://musicbrainz.dontdrinkandroot.net && \
 rsync -rt --delete dist/ deployer@musicbrainz.dontdrinkandroot.net:/var/www/musicbrainz.dontdrinkandroot.net/

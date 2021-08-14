@@ -1,12 +1,12 @@
 //@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@use '~@angular/material' as mat;
 @import 'bootstrap';
-@import '~@angular/material/theming';
 
-@include mat-core();
-$mb-app-primary: mat-palette($mat-deep-orange);
-$mb-app-accent: mat-palette($mat-purple);
-$mb-app-theme: mat-light-theme($mb-app-primary, $mb-app-accent);
-@include angular-material-theme($mb-app-theme);
+@include mat.core();
+$mb-app-primary: mat.define-palette(mat.$deep-orange-palette);
+$mb-app-accent: mat.define-palette(mat.$purple-palette);
+$mb-app-theme: mat.define-light-theme($mb-app-primary, $mb-app-accent);
+@include mat.all-component-themes($mb-app-theme);
 
 html, body {
     padding: 0;
