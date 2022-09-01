@@ -32,7 +32,7 @@ jobs:
             -   name: Generate icons
                 run: yarn icons
             -   name: Build Prod
-                run: yarn ng build --configuration production
+                run: yarn ng build --configuration production --base-href=https://apps.dontdrinkandroot.net/musicbrainz-browser/
             -   name: Archive build
                 if: success()
                 uses: actions/upload-artifact@v1
