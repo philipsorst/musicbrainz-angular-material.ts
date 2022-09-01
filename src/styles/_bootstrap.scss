@@ -67,6 +67,7 @@ $enable-deprecation-messages: false;
 $enable-grid-classes: true !default;
 
 $grid-columns: 12 !default;
+$grid-row-columns: 6 !default;
 $grid-gutter-width: 16px !default;
 
 @import '~bootstrap/scss/mixins/breakpoints';
